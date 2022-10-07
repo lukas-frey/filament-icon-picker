@@ -139,37 +139,6 @@ class IconPicker extends Select
         return $results;
     }
 
-//    public static function make(string $name): static
-//    {
-//        $static = app(static::class, ['name' => $name]);
-//        $static->configure();
-//
-//        return $static;
-//    }
-
-
-//    public static function make(string $name): Select
-//    {
-//        $iconsFactory = App::make(IconFactory::class);
-//        $sets = $iconsFactory->all();
-//
-//        return Select::make($name)
-//            ->allowHtml()
-//            ->extraAttributes([
-//                'class' => 'filament-icon-picker',
-//            ])
-//            ->searchable()
-//            ->getSearchResultsUsing(function (Select $component, string $search) use ($sets) {
-//                $icons = static::icons($sets, $search);
-//
-//                return collect($icons)->mapWithKeys(function (string $icon) use ($component) {
-//                    return [$icon => static::getCleanOptionString($component, $icon)];
-//                })->toArray();
-//            })
-//            ->columns(3)
-//        ;
-//    }
-
     public function relationship(Closure|string $relationshipName, Closure|string $titleColumnName, ?Closure $callback = null): static
     {
         throw new \BadMethodCallException('Method not allowed.');
@@ -219,15 +188,6 @@ class IconPicker extends Select
     {
         throw new \BadMethodCallException('Method not allowed.');
     }
-
-//    private function icons() {
-//
-//        $iconsFactory = App::make(IconFactory::class);
-//        $this->sets = $iconsFactory->all();
-//
-////        $this->icons = $this->icons();
-//    }
-
 
     private function loadIcons(): Collection
     {
