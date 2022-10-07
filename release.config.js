@@ -26,21 +26,16 @@ module.exports = {
         ["@semantic-release/release-notes-generator", {
             "preset": "conventionalcommits"
         }],
-        // ["@semantic-release/github", {
-        //     "assets": [
-        //         {"path": "dist/plugin.css", "label": "CSS distribution"},
-        //     ]
-        // }],
-        // ["@semantic-release/changelog",
-        //     {
-        //         "changelogFile": "CHANGELOG.md"
-        //     }
-        // ],
-        // ["@semantic-release/git",
-        //     {
-        //         "assets": ["CHANGELOG.md"]
-        //     }
-        // ],
+        ["@semantic-release/github", {
+            "assets": [
+                {"path": "dist/plugin.css", "label": "CSS distribution"},
+            ]
+        }],
+        ["@semantic-release/changelog",
+            {
+                "changelogFile": "CHANGELOG.md"
+            }
+        ],
         ["@semantic-release/npm", {
             "tarballDir": "release",
             "npmPublish": false
