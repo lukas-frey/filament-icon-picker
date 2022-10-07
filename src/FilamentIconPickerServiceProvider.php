@@ -6,10 +6,16 @@ use Spatie\LaravelPackageTools\Package;
 
 class FilamentIconPickerServiceProvider extends PluginServiceProvider
 {
+    protected array $styles = [
+        'filament-icon-picker-styles' => __DIR__ . '/../dist/plugin.css',
+    ];
 
     public function configurePackage(Package $package): void
     {
-        $package->name('Filament Icon Picker');
+        $package
+            ->name('filament-icon-picker')
+            ->hasViews()
+        ;
     }
 
 }

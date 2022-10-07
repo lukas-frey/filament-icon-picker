@@ -1,0 +1,87 @@
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .filament-icon-picker .choices > .choices__list {
+        @apply px-2;
+    }
+
+    .filament-icon-picker.filament-icon-picker-on-top .choices > .choices__list {
+        @apply visible relative px-2;
+    }
+
+    .filament-icon-picker.filament-icon-picker-on-top .choices > .choices__inner {
+        @apply bg-none;
+    }
+
+    .filament-icon-picker.filament-icon-picker-on-top .choices > .choices__inner > .choices__list.choices__list--single {
+        @apply relative px-0;
+    }
+
+    .filament-icon-picker.filament-icon-picker-on-top .choices > .choices__inner > .choices__list.choices__list--single .choices__button {
+        @apply absolute mr-2;
+    }
+
+    .filament-icon-picker .choices > .choices__list .choices__list {
+        @apply pb-2 gap-2;
+    }
+
+    .filament-icon-picker .choices > .choices__list .choices__list .choices__item {
+        @apply border-[1px] rounded-lg shadow-sm;
+    }
+
+    .filament-icon-picker .choices > .choices__list .choices__list .choices__item.has-no-choices,
+    .filament-icon-picker .choices > .choices__list .choices__list .choices__item.has-no-results,
+    .filament-icon-picker .choices > .choices__list .choices__list .choices__item.choices__item--disabled {
+        @apply border-none shadow-none;
+    }
+
+    /*.filament-icon-picker .choices > .choices__list .choices__list .choices__item.is-highlighted {*/
+    /*    @apply bg-transparent text-gray-900;*/
+    /*}*/
+
+    /*.filament-icon-picker .choices > .choices__list .choices__list .choices__item.is-highlighted:hover {*/
+    /*    @apply bg-primary-600 text-white;*/
+    /*}*/
+
+    .filament-icon-picker .choices > .choices__list .choices__list {
+        @apply grid;
+    }
+}
+.filament-icon-picker .choices > .choices__list .choices__list .choices__item.has-no-choices,
+.filament-icon-picker .choices > .choices__list .choices__list .choices__item.has-no-results,
+.filament-icon-picker .choices > .choices__list .choices__list .choices__item.choices__item--disabled {
+    @apply col-span-full;
+}
+
+@for $i from 1 to 12 {
+    .filament-icon-picker[default="$(i)"] .choices > .choices__list .choices__list {
+        @apply grid-cols-[repeat($(i),_minmax(0,_1fr))]
+    }
+}
+
+@for $i from 1 to 12 {
+    .filament-icon-picker[sm="$(i)"] .choices > .choices__list .choices__list {
+        @apply sm:grid-cols-[repeat($(i),_minmax(0,_1fr))]
+    }
+}
+@for $i from 1 to 12 {
+    .filament-icon-picker[md="$(i)"] .choices > .choices__list .choices__list {
+        @apply md:grid-cols-[repeat($(i),_minmax(0,_1fr))]
+    }
+}
+@for $i from 1 to 12 {
+    .filament-icon-picker[lg="$(i)"] .choices > .choices__list .choices__list {
+        @apply lg:grid-cols-[repeat($(i),_minmax(0,_1fr))]
+    }
+}
+@for $i from 1 to 12 {
+    .filament-icon-picker[xl="$(i)"] .choices > .choices__list .choices__list {
+        @apply xl:grid-cols-[repeat($(i),_minmax(0,_1fr))]
+    }
+}
+@for $i from 1 to 12 {
+    .filament-icon-picker[\2xl="$(i)"] .choices > .choices__list .choices__list {
+        @apply 2xl:grid-cols-[repeat($(i),_minmax(0,_1fr))]
+    }
+}
