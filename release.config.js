@@ -46,5 +46,6 @@ module.exports = {
             "npmPublish": false
         }],
     ],
+    "branches": ["main", "next"],
     "tagFormat": "${version}"
 }

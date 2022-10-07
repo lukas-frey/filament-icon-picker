@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@awcodes/filament-plugin-purge": "^1.0.2",
+    "conventional-changelog-conventionalcommits": "^5.0.0",
     "postcss-for": "^2.1.1"
   }
 }
