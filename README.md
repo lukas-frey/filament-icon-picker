@@ -48,6 +48,7 @@ composer require guava/filament-icon-picker
 
 ## Usage
 
+### Basic Usage
 Usage in Admin Panel:
 ```php
 use Guava\FilamentIconPicker\Forms\IconPicker;
@@ -71,6 +72,74 @@ protected function getFormSchema(): array
         IconPicker::make('icon'),
     ];
 }
+```
+
+### Options
+
+#### Columns
+By default, a single-column icon picker will be displayed.
+You can customize the amount of columns using `->columns()` like this:
+```php
+// Display 3 columns from lg and above
+IconPicker::make('icon')
+    ->columns(3); 
+    
+// More detailed customization
+// This will display 1 column from xs to md, 3 columns from lg to xl and 5 columns from 2xl and above
+IconPicker::make('icon')
+    ->columns([
+        'default' => 1,
+        'lg' => 3,
+        '2xl' => 5,
+    ]);
+```
+
+
+#### Sets
+By default, the plugin will use the heroicons set. If you have installed [additional icon sets](https://github.com/blade-ui-kit/blade-icons#icon-packages), you add them using this option:
+```php
+// Search both herocions and fontawesome icons
+IconPicker::make('icon')
+    ->sets(['heroicons', 'fontawesome-solid']); 
+```
+
+
+#### Allow/Disallow icons
+For detailed control over the icons, there are two options available to allow and disallow certain icons.
+```php
+// Allow ONLY heroicon-o-user and heroicon-o-users
+// Allow ALL fontawesome icons, EXCEPT fas-user
+IconPicker::make('icon')
+    ->allowIcons(['heroicon-o-user', 'heroicon-o-users'])
+    ->disallowIcons(['fas-user']); 
+```
+
+
+#### Layout
+The icon picker comes with two layouts. The default, `Layout::FLOATING` is the standard layout used in Filament Selects.  The search results will appear in a pop over window.  
+Screenshot coming soon
+
+The `Layout::ON_TOP` will render the search results always on the page.
+add  
+Screenshot coming soon
+
+```php
+// 
+IconPicker::make('icon')
+    ->layout(Layout::FLOATING) // default
+    //or
+    ->layout(Layout::ON_TOP)
+```
+
+#### Custom Item Template
+Out of the box, the search results render a preview of the icon and their identifier.
+You are free to customize this using the `->itemTemplate()` option:
+
+```php
+// Render your.blade.template instead of the default template.  
+// Make sure to pass the $icon as parameter to be able to render it in your view.
+IconPicker::make('icon')
+    ->itemTemplate(fn($icon) => view('your.blade.template', ['icon' => $icon]));
 ```
 
 [//]: # (## Testing)
