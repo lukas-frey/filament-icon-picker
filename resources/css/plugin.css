@@ -36,14 +36,6 @@
         @apply border-none shadow-none;
     }
 
-    /*.filament-icon-picker .choices > .choices__list .choices__list .choices__item.is-highlighted {*/
-    /*    @apply bg-transparent text-gray-900;*/
-    /*}*/
-
-    /*.filament-icon-picker .choices > .choices__list .choices__list .choices__item.is-highlighted:hover {*/
-    /*    @apply bg-primary-600 text-white;*/
-    /*}*/
-
     .filament-icon-picker .choices > .choices__list .choices__list {
         @apply grid;
     }
