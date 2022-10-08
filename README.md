@@ -8,6 +8,14 @@
 
 This plugin adds a new icon picker form field and a corresponding table column. You can use it to select from any blade-icons kit that you have installed. By default, heroicons are supported since it is shipped with Filament.
 
+This can be useful for when you want to customize icons rendered on your frontend, if you want your users to be able to customize navigation icons, add small icons to their models for easy recognition and similar.
+
+
+
+https://user-images.githubusercontent.com/10926334/194676916-446eb432-c859-4f94-bf52-2b1ee4416a93.mov
+
+
+
 ## Installation
 
 You can install the package via composer:
@@ -110,6 +118,10 @@ IconPicker::make('icon')
         '2xl' => 5,
     ]);
 ```
+1 Column             |  3 Columns
+:-------------------------:|:-------------------------:
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/10926334/194676645-4e8e14bf-e7a6-4e34-aab2-ae72364e7529.png"> | <img width="500" alt="image" src="https://user-images.githubusercontent.com/10926334/194676682-c29d0f46-8bf8-412b-84b5-98509e411202.png">
+
 
 
 #### Sets
@@ -133,12 +145,9 @@ IconPicker::make('icon')
 
 
 #### Layout
-The icon picker comes with two layouts. The default, `Layout::FLOATING` is the standard layout used in Filament Selects.  The search results will appear in a pop over window.  
-Screenshot coming soon
+The icon picker comes with two layouts. The default, `Layout::FLOATING` is the standard layout used in Filament Selects.  The search results will appear in a pop over window.
 
 The `Layout::ON_TOP` will render the search results always on the page.
-add  
-Screenshot coming soon
 
 ```php
 // 
