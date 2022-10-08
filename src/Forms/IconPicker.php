@@ -19,7 +19,7 @@ class IconPicker extends Select
 
     protected string $view = 'filament-icon-picker::forms.icon-picker';
 
-    protected array|Closure|null $sets = ['heroicons'];
+    protected array|Closure|null $sets = null;
     protected array|Closure|null $allowedIcons = null;
     protected array|Closure|null $disallowedIcons = null;
 
@@ -35,6 +35,10 @@ class IconPicker extends Select
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->sets(config('icon-picker.sets', null));
+        $this->columns(config('icon-picker.columns', 1));
+        $this->layout(config('icon-picker.layout', Layout::FLOATING));
 
         $this->getSearchResultsUsing = function (IconPicker $component, string $search, Collection $icons) {
             return collect($icons)
@@ -64,14 +68,14 @@ class IconPicker extends Select
      * @param array|string|Closure|null $sets
      * @return $this
      */
-    public function sets(array|Closure|string|null $sets): static
+    public function sets(array|Closure|string|null $sets = null): static
     {
-        $this->sets = is_array($sets) ? $sets : [$sets];
+        $this->sets = $sets ? (is_string($sets) ? [$sets] : $sets) : null;
 
         return $this;
     }
 
-    public function getSets(): array
+    public function getSets(): ?array
     {
         return $this->evaluate($this->sets);
     }
@@ -206,9 +210,11 @@ class IconPicker extends Select
     private function loadIcons(): Collection
     {
         $iconsFactory = App::make(IconFactory::class);
-        $sets = collect($iconsFactory->all())
-            ->filter(fn($value, $key) => in_array($key, $this->getSets()));
-
+        $availableSets = $this->getSets();
+        $sets = collect($iconsFactory->all());
+        if ($availableSets) {
+            $sets = $sets->filter(fn($value, $key) => in_array($key, $availableSets));
+        }
         $icons = [];
 
         $allowedIcons = $this->getAllowedIcons();

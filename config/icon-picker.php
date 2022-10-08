@@ -1,0 +1,63 @@
+<?php
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default Sets
+    |--------------------------------------------------------------------------
+    |
+    | This configures the icon sets the plugin should use by default for
+    | every Icon Picker.
+    |
+    | You can pass a string with the icon set's name or an array
+    | of multiple icon set names.
+    |
+    | When set to null (default), every installed icon set will be used.
+    |
+    */
+    'sets' => null,
+//     example:
+//     'sets' => 'heroicons',
+//     'sets' => [
+//        'heroicons',
+//        'fontawesome-solid',
+//    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default Columns
+    |--------------------------------------------------------------------------
+    |
+    | This is the default value for the columns configuration. It is used by
+    | every icon picker, when not set explicitly.
+    |
+    | Can be either an integer from 1 - 12 or an array of integers
+    | with breakpoints (default, sm, md, lg, xl, 2xl) as the key.
+    |
+    */
+    'columns' => 1,
+//     example:
+//    'columns' => [
+//        'default' => 1,
+//        'lg' => 3,
+//        '2xl' => 5,
+//    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default Layout
+    |--------------------------------------------------------------------------
+    |
+    | This is the default value for the layout configuration. It is used by
+    | every icon picker, when not set explicitly.
+    |
+    | FLOATING: The select will behave the same way as the default filament
+    | select. It will show when selected and hide when clicked outside.
+    |
+    | ON_TOP: The select options will always be visible in a catalogue-like
+    | grid view.
+    |
+    */
+    'layout' => \Guava\FilamentIconPicker\Layout::FLOATING,
+
+];

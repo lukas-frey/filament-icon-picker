@@ -24,35 +24,29 @@ You can install the package via composer:
 composer require guava/filament-icon-picker
 ```
 
-[//]: # ()
-[//]: # (You can publish the config file with:)
+You can publish the config file with:
 
-[//]: # ()
-[//]: # (```bash)
+```bash
+php artisan vendor:publish --tag="filament-icon-picker-config")
+```
 
-[//]: # (php artisan vendor:publish --tag=":package_slug-config")
+This is the contents of the published config file:
 
-[//]: # (```)
+```php
 
-[//]: # (Optionally, you can publish the views using)
+<?php
+return [
 
-[//]: # ()
-[//]: # (```bash)
+    'sets' => null,
 
-[//]: # (php artisan vendor:publish --tag=":package_slug-views")
+    'columns' => 1,
 
-[//]: # (```)
+    'layout' => \Guava\FilamentIconPicker\Layout::FLOATING,
 
-[//]: # (This is the contents of the published config file:)
+];
 
-[//]: # ()
-[//]: # (```php)
 
-[//]: # (return [)
-
-[//]: # (];)
-
-[//]: # (```)
+```
 
 ## Usage
 
@@ -103,7 +97,7 @@ public static function table(Table $table): Table
 
 #### Columns
 By default, a single-column icon picker will be displayed.
-You can customize the amount of columns using `->columns()` like this:
+You can customize the amount of columns via the `icon-picker.columns` configuration or using the `->columns()` option like this:
 ```php
 // Display 3 columns from lg and above
 IconPicker::make('icon')
@@ -125,7 +119,7 @@ IconPicker::make('icon')
 
 
 #### Sets
-By default, the plugin will use the heroicons set. If you have installed [additional icon sets](https://github.com/blade-ui-kit/blade-icons#icon-packages), you add them using this option:
+By default, the plugin will use all available [blade icon sets](https://github.com/blade-ui-kit/blade-icons#icon-packages) installed. If you want to use only specific icon sets, you can change the default via the `icon-picker.sets` configuration or on a case-by-case basis:
 ```php
 // Search both herocions and fontawesome icons
 IconPicker::make('icon')
