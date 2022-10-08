@@ -6,7 +6,7 @@
 [//]: # ([![GitHub Tests Action Status]&#40;https://img.shields.io/github/workflow/status/:vendor_slug/:package_slug/run-tests?label=tests&#41;]&#40;https://github.com/:vendor_slug/:package_slug/actions?query=workflow%3Arun-tests+branch%3Amain&#41;)
 [//]: # ([![GitHub Code Style Action Status]&#40;https://img.shields.io/github/workflow/status/LukasFreyCZ/filament-icon-picker/Check%20&%20fix%20styling?label=code%20style&#41;]&#40;https://github.com/LukasFreyCZ/filament-icon-picker/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain&#41;)
 
-This plugin adds a new icon picker form field. You can use it to select from any blade-icons kit that you have installed. By default, heroicons are supported since it is shipped with Filament.
+This plugin adds a new icon picker form field and a corresponding table column. You can use it to select from any blade-icons kit that you have installed. By default, heroicons are supported since it is shipped with Filament.
 
 ## Installation
 
@@ -71,6 +71,23 @@ protected function getFormSchema(): array
     return [
         IconPicker::make('icon'),
     ];
+}
+```
+
+
+Usage in Tables:
+```php
+// Make sure this is the correct import, not the filament one
+use Guava\FilamentIconPicker\Tables\IconColumn;
+
+public static function table(Table $table): Table
+{
+    return $table
+        ->columns([
+            IconColumn::make('icon'),
+        ])
+        // ...
+        ;
 }
 ```
 
