@@ -8,6 +8,14 @@
 
 This plugin adds a new icon picker form field. You can use it to select from any blade-icons kit that you have installed. By default, heroicons are supported since it is shipped with Filament.
 
+This can be useful for when you want to customize icons rendered on your frontend, if you want your users to be able to customize navigation icons, add small icons to their models for easy recognition and similar.
+
+
+
+https://user-images.githubusercontent.com/10926334/194676916-446eb432-c859-4f94-bf52-2b1ee4416a93.mov
+
+
+
 ## Installation
 
 You can install the package via composer:
