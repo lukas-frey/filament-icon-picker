@@ -45,8 +45,16 @@ class IconPicker extends Select
                 ->toArray();
         };
 
+        $this->getOptionLabelUsing = function (IconPicker $component, string $value) {
+            return $component->getItemTemplate(['icon' => $value]);
+        };
+
         $this
-            ->itemTemplate(fn(string $icon) => \view('filament-icon-picker::item', ['icon' => $icon])->render())
+            ->itemTemplate(function (IconPicker $component, string $icon) {
+                return \view('filament-icon-picker::item', [
+                    'icon' => $icon,
+                ])->render();
+            })
             ->placeholder(function () {
                 return $this->view('filament-icon-picker::placeholder')->render();
             });
@@ -96,14 +104,15 @@ class IconPicker extends Select
         ]);
     }
 
-    public function layout(Layout | Closure $layout): static
+    public function layout(Layout|Closure $layout): static
     {
         $this->layout = $layout;
 
         return $this;
     }
 
-    public function getLayout(): Layout {
+    public function getLayout(): Layout
+    {
         return $this->evaluate($this->layout);
     }
 
@@ -185,6 +194,11 @@ class IconPicker extends Select
     }
 
     public function schema(array|Closure $components): static
+    {
+        throw new \BadMethodCallException('Method not allowed.');
+    }
+
+    public function multiple(bool|Closure $condition = true): static
     {
         throw new \BadMethodCallException('Method not allowed.');
     }
