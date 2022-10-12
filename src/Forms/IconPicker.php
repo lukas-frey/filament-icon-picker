@@ -157,7 +157,7 @@ class IconPicker extends Select
         throw new \BadMethodCallException('Method not allowed.');
     }
 
-    public function options(array|Closure|string|Arrayable $options): static
+    public function options(Arrayable|Closure|array|string|null $options): static
     {
         throw new \BadMethodCallException('Method not allowed.');
     }
