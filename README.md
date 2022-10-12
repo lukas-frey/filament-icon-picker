@@ -1,3 +1,5 @@
+![icon_picker_banner](https://user-images.githubusercontent.com/10926334/194752395-677e25f6-2878-4652-a95f-ef9c4392c093.png)
+
 # Filament Icon Picker
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/guava/filament-icon-picker.svg?style=flat-square)](https://packagist.org/packages/guava/filament-icon-picker)
