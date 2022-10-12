@@ -139,9 +139,13 @@ IconPicker::make('icon')
 For detailed control over the icons, there are two options available to allow and disallow certain icons.
 ```php
 // Allow ONLY heroicon-o-user and heroicon-o-users
+IconPicker::make('icon')
+    ->allowIcons(['heroicon-o-user', 'heroicon-o-users']);
+```
+
+```php
 // Allow ALL fontawesome icons, EXCEPT fas-user
 IconPicker::make('icon')
-    ->allowIcons(['heroicon-o-user', 'heroicon-o-users'])
     ->disallowIcons(['fas-user']); 
 ```
 
