@@ -2,8 +2,8 @@
 
 namespace Guava\FilamentIconPicker;
 
-enum Layout: string
+class Layout
 {
-    case FLOATING = 'floating';
-    case ON_TOP = 'on-top';
+    public const FLOATING = 'floating';
+    public const ON_TOP = 'on_top';
 }

@@ -30,7 +30,7 @@ class IconPicker extends Select
 
     protected Closure|string|Htmlable|null $itemTemplate = null;
 
-    protected Layout $layout = Layout::FLOATING;
+    protected string $layout = Layout::FLOATING;
 
     protected bool|Closure $show;
 
@@ -116,14 +116,14 @@ class IconPicker extends Select
         ]);
     }
 
-    public function layout(Layout|Closure $layout): static
+    public function layout(string|Closure $layout): static
     {
         $this->layout = $layout;
 
         return $this;
     }
 
-    public function getLayout(): Layout
+    public function getLayout(): string
     {
         return $this->evaluate($this->layout);
     }
