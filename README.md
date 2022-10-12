@@ -101,6 +101,14 @@ public static function table(Table $table): Table
 }
 ```
 
+The field's state returns the selected identifier of the icon.
+
+Assuming we saved the icon on our `$category` model under `$icon`, you can render it in your blade view using:
+```php
+<x-icon name="{{ $category->icon }}" />
+```
+More information on rendering the icon on the [blade-icons github](https://github.com/blade-ui-kit/blade-icons#default-component).
+
 ### Options
 
 #### Columns
