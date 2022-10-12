@@ -6,6 +6,7 @@ namespace Guava\FilamentIconPicker\Forms;
 use BladeUI\Icons\Factory as IconFactory;
 use Closure;
 use Filament\Forms\Components\Select;
+use Guava\FilamentIconPicker\Forms\Concerns\CanBeCacheable;
 use Guava\FilamentIconPicker\Layout;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Htmlable;
@@ -16,6 +17,7 @@ use Illuminate\View\View;
 
 class IconPicker extends Select
 {
+    use CanBeCacheable;
 
     protected string $view = 'filament-icon-picker::forms.icon-picker';
 
@@ -41,12 +43,18 @@ class IconPicker extends Select
         $this->layout(config('icon-picker.layout', Layout::FLOATING));
 
         $this->getSearchResultsUsing = function (IconPicker $component, string $search, Collection $icons) {
-            return collect($icons)
-                ->filter(fn(string $icon) => str_contains($icon, $search))
-                ->mapWithKeys(function (string $icon) use ($component) {
-                    return [$icon => $component->getItemTemplate(['icon' => $icon])];
-                })
-                ->toArray();
+
+            $iconsHash = md5(serialize($icons));
+            $key = "icon-picker.results.$iconsHash.$search";
+
+            return $this->tryCache($key, function () use ($component, $search, $icons) {
+                return collect($icons)
+                    ->filter(fn(string $icon) => str_contains($icon, $search))
+                    ->mapWithKeys(function (string $icon) use ($component) {
+                        return [$icon => $component->getItemTemplate(['icon' => $icon])];
+                    })
+                    ->toArray();
+            });
         };
 
         $this->getOptionLabelUsing = function (IconPicker $component, string $value) {
@@ -209,16 +217,24 @@ class IconPicker extends Select
 
     private function loadIcons(): Collection
     {
-        $iconsFactory = App::make(IconFactory::class);
-        $availableSets = $this->getSets();
-        $sets = collect($iconsFactory->all());
-        if ($availableSets) {
-            $sets = $sets->filter(fn($value, $key) => in_array($key, $availableSets));
-        }
-        $icons = [];
+        [$sets, $allowedIcons, $disallowedIcons] = $this->tryCache(
+            "icon-picker.fields.{$this->getStatePath()}",
+            function () {
+                $allowedIcons = $this->getAllowedIcons();
+                $disallowedIcons = $this->getDisallowedIcons();
 
-        $allowedIcons = $this->getAllowedIcons();
-        $disallowedIcons = $this->getDisallowedIcons();
+                $iconsFactory = App::make(IconFactory::class);
+                $allowedSets = $this->getSets();
+                $sets = collect($iconsFactory->all());
+
+                if ($allowedSets) {
+                    $sets = $sets->filter(fn($value, $key) => in_array($key, $allowedSets));
+                }
+
+                return [$sets, $allowedIcons, $disallowedIcons];
+            });
+
+        $icons = [];
 
         foreach ($sets as $set) {
             $prefix = $set['prefix'];

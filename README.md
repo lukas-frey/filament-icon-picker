@@ -44,6 +44,11 @@ return [
     'columns' => 1,
 
     'layout' => \Guava\FilamentIconPicker\Layout::FLOATING,
+    
+    'cache' => [
+        'enabled' => true,
+        'duration' => '7 days',
+    ],
 
 ];
 
@@ -162,6 +167,23 @@ You are free to customize this using the `->itemTemplate()` option:
 // Make sure to pass the $icon as parameter to be able to render it in your view.
 IconPicker::make('icon')
     ->itemTemplate(fn($icon) => view('your.blade.template', ['icon' => $icon]));
+```
+
+#### Caching
+Depending on how many icon packs you use and their size, the loading time
+for getting the search results can be high. In order to mitigate this
+issue a bit, search results are by default cached (for 7 days).
+
+You can configure the default caching options for all icon pickers in the configuration file.
+
+To configure a specific IconPicker, these methods are available:
+```php
+IconPicker::make('icon')
+    // Disable caching
+    ->cacheable(false)
+    
+    // Cache for one hour
+    ->cacheDuration(3600);
 ```
 
 [//]: # (## Testing)

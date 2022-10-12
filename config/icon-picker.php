@@ -60,4 +60,24 @@ return [
     */
     'layout' => \Guava\FilamentIconPicker\Layout::FLOATING,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Caching
+    |--------------------------------------------------------------------------
+    |
+    | This section lets you configure the caching option of the plugin.
+    |
+    | Since icon packs are often packed with a lots of icons,
+    | searching through all of them can take quite a lot of time, which is
+    | why the plugin caches each field with it's configuration and search queries.
+    |
+    | This section let's you configure how caching should be done or disable it
+    | if you wish.
+    |
+    */
+    'cache' => [
+        'enabled' => true,
+        'duration' => '7 days',
+    ],
+
 ];
