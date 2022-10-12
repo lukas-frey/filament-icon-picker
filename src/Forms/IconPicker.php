@@ -57,8 +57,8 @@ class IconPicker extends Select
             });
         };
 
-        $this->getOptionLabelUsing = function (IconPicker $component, string $value) {
-            return $component->getItemTemplate(['icon' => $value]);
+        $this->getOptionLabelUsing = function (IconPicker $component, $value) {
+                return $component->getItemTemplate(['icon' => $value]);
         };
 
         $this
