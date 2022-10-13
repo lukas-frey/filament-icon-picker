@@ -6,19 +6,19 @@
         @apply px-2;
     }
 
-    .filament-icon-picker.filament-icon-picker-on-top .choices > .choices__list {
+    .filament-icon-picker.filament-icon-picker-on_top .choices > .choices__list {
         @apply visible relative px-2;
     }
 
-    .filament-icon-picker.filament-icon-picker-on-top .choices > .choices__inner {
+    .filament-icon-picker.filament-icon-picker-on_top .choices > .choices__inner {
         @apply bg-none;
     }
 
-    .filament-icon-picker.filament-icon-picker-on-top .choices > .choices__inner > .choices__list.choices__list--single {
+    .filament-icon-picker.filament-icon-picker-on_top .choices > .choices__inner > .choices__list.choices__list--single {
         @apply relative px-0;
     }
 
-    .filament-icon-picker.filament-icon-picker-on-top .choices > .choices__inner > .choices__list.choices__list--single .choices__button {
+    .filament-icon-picker.filament-icon-picker-on_top .choices > .choices__inner > .choices__list.choices__list--single .choices__button {
         @apply absolute mr-2;
     }
 
