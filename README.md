@@ -30,7 +30,7 @@ composer require guava/filament-icon-picker
 You can publish the config file with:
 
 ```bash
-php artisan vendor:publish --tag="filament-icon-picker-config")
+php artisan vendor:publish --tag="filament-icon-picker-config"
 ```
 
 This is the contents of the published config file:
