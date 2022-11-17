@@ -142,6 +142,8 @@ IconPicker::make('icon')
     ->sets(['heroicons', 'fontawesome-solid']); 
 ```
 
+**When installing new sets, please make sure to clear your cache, if you can't find your icons in the icon picker.**
+
 
 #### Allow/Disallow icons
 For detailed control over the icons, there are two options available to allow and disallow certain icons.
