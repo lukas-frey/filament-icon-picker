@@ -19,7 +19,7 @@
   },
   "require": {
     "php": "^8.0",
-    "filament/filament": "^2.0",
+    "filament/filament": "*",
     "illuminate/contracts": "^9.0"
   },
   "extra": {
@@ -28,5 +28,13 @@
         "Guava\\FilamentIconPicker\\FilamentIconPickerServiceProvider"
       ]
     }
-  }
+  },
+  "repositories": {
+    "filament-v3": {
+      "type": "path",
+      "url": "../filament-v3/packages/*"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
