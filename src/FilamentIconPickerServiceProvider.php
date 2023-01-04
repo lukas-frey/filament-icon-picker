@@ -1,10 +1,11 @@
 <?php
 
 namespace Guava\FilamentIconPicker;
-use Filament\PluginServiceProvider;
+use Filament\FilamentServiceProvider;
+//use Filament\Support\PluginServiceProvider;
 use Spatie\LaravelPackageTools\Package;
 
-class FilamentIconPickerServiceProvider extends PluginServiceProvider
+class FilamentIconPickerServiceProvider extends FilamentServiceProvider
 {
     protected array $styles = [
         'filament-icon-picker-styles' => __DIR__ . '/../dist/plugin.css',
