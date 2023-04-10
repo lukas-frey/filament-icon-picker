@@ -230,3 +230,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+## Other packages
+- [Laravel Populator](https://github.com/GuavaCZ/laravel-populator)
+- [Filament Drafts](https://github.com/GuavaCZ/filament-drafts)
