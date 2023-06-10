@@ -162,7 +162,7 @@ class IconPicker extends Select
         return $results;
     }
 
-    public function relationship(Closure|string $relationshipName, Closure|string $titleColumnName, ?Closure $callback = null): static
+    public function relationship(Closure|string|null $relationshipName, Closure|string|null $titleAttribute, ?Closure $modifyOptionsQueryUsing = null): static
     {
         throw new \BadMethodCallException('Method not allowed.');
     }
