@@ -1,22 +1,28 @@
 <?php
 
 namespace Guava\FilamentIconPicker;
-use Filament\PluginServiceProvider;
+
+use Filament\Support\Assets\Css;
+use Filament\Support\Facades\FilamentAsset;
 use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class FilamentIconPickerServiceProvider extends PluginServiceProvider
+class FilamentIconPickerServiceProvider extends PackageServiceProvider
 {
-    protected array $styles = [
-        'filament-icon-picker-styles' => __DIR__ . '/../dist/plugin.css',
-    ];
-
     public function configurePackage(Package $package): void
     {
         $package
             ->name('filament-icon-picker')
             ->hasViews()
-            ->hasConfigFile('icon-picker')
-        ;
+            ->hasConfigFile('icon-picker');
     }
 
+    public function packageRegistered(): void
+    {
+        $this->mergeConfigFrom(__DIR__.'/../config/icon-picker.php', 'filament-icon-picker');
+
+        FilamentAsset::register([
+            Css::make('icon-picker-stylesheet', __DIR__ . '/../resources/css/plugin.css'),
+        ], package: 'guava/filament-icon-picker');
+    }
 }
