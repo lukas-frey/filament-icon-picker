@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "npx tailwindcss -i resources/css/plugin.css -o dist/plugin.css --postcss --watch",
     "build": "npx tailwindcss -i resources/css/plugin.css -o dist/plugin.css --postcss --minify && npm run purge",
-    "purge": "filament-purge -i dist/plugin.css -o dist/plugin.css"
+    "purge": "filament-purge -i dist/plugin.css -o dist/plugin.css -v 3.x"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.1",

@@ -19,7 +19,7 @@
   },
   "require": {
     "php": "^8.0",
-    "filament/filament": "^2.0",
+    "filament/filament": "^3.0",
     "illuminate/contracts": "^9.0|^10.0"
   },
   "extra": {
@@ -28,5 +28,7 @@
         "Guava\\FilamentIconPicker\\FilamentIconPickerServiceProvider"
       ]
     }
-  }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }

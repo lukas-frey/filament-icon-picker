@@ -6,12 +6,16 @@
         @apply px-2;
     }
 
+    .filament-icon-picker .choices > .choices__inner > .choices__list.choices__list--single {
+        @apply w-full;
+    }
+
     .filament-icon-picker.filament-icon-picker-on_top .choices > .choices__list {
         @apply visible relative px-2;
     }
 
     .filament-icon-picker.filament-icon-picker-on_top .choices > .choices__inner {
-        @apply bg-none;
+        @apply bg-none px-3;
     }
 
     .filament-icon-picker.filament-icon-picker-on_top .choices > .choices__inner > .choices__list.choices__list--single {
@@ -27,7 +31,7 @@
     }
 
     .filament-icon-picker .choices > .choices__list .choices__list .choices__item {
-        @apply border-[1px] rounded-lg shadow-sm;
+        @apply hover:cursor-pointer border-[1px] rounded-lg shadow-sm;
     }
 
     .filament-icon-picker .choices > .choices__list .choices__list .choices__item.has-no-choices,
