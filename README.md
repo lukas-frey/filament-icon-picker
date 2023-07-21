@@ -23,8 +23,14 @@ https://user-images.githubusercontent.com/10926334/194676916-446eb432-c859-4f94-
 
 You can install the package via composer:
 
+**Filament v3:**
 ```bash
-composer require guava/filament-icon-picker
+composer require guava/filament-icon-picker:"^2.0"
+```
+
+**Filament v2:**
+```bash
+composer require guava/filament-icon-picker:"^1.0"
 ```
 
 You can publish the config file with:
