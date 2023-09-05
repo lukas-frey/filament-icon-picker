@@ -19,7 +19,7 @@
   },
   "require": {
     "php": "^8.0",
-    "filament/filament": "^3.0",
+    "filament/filament": "^3.0@stable",
     "illuminate/contracts": "^9.0|^10.0"
   },
   "extra": {
