@@ -219,8 +219,11 @@ class IconPicker extends Select
 
     private function loadIcons(): Collection
     {
+        $iconsHash = md5(serialize($this->getSets()));
+        $key = "icon-picker.fields.{$iconsHash}.{$this->getStatePath()}";
+
         [$sets, $allowedIcons, $disallowedIcons] = $this->tryCache(
-            "icon-picker.fields.{$this->getStatePath()}",
+            $key,
             function () {
                 $allowedIcons = $this->getAllowedIcons();
                 $disallowedIcons = $this->getDisallowedIcons();
