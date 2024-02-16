@@ -51,15 +51,13 @@ return [
     'columns' => 1,
 
     'layout' => \Guava\FilamentIconPicker\Layout::FLOATING,
-    
+
     'cache' => [
         'enabled' => true,
         'duration' => '7 days',
     ],
 
 ];
-
-
 ```
 
 ## Usage
@@ -72,7 +70,7 @@ use Guava\FilamentIconPicker\Forms\IconPicker;
 public static function form(Form $form): Form
 {
     return $form->schema([
-        IconPicker::make('icon');
+        IconPicker::make('icon'),
     ]);
 }
 ```
@@ -123,8 +121,8 @@ You can customize the amount of columns via the `icon-picker.columns` configurat
 ```php
 // Display 3 columns from lg and above
 IconPicker::make('icon')
-    ->columns(3); 
-    
+    ->columns(3);
+
 // More detailed customization
 // This will display 1 column from xs to md, 3 columns from lg to xl and 5 columns from 2xl and above
 IconPicker::make('icon')
@@ -145,7 +143,7 @@ By default, the plugin will use all available [blade icon sets](https://github.c
 ```php
 // Search both herocions and fontawesome icons
 IconPicker::make('icon')
-    ->sets(['heroicons', 'fontawesome-solid']); 
+    ->sets(['heroicons', 'fontawesome-solid']);
 ```
 
 **When installing new sets, please make sure to clear your cache, if you can't find your icons in the icon picker.**
@@ -162,7 +160,7 @@ IconPicker::make('icon')
 ```php
 // Allow ALL fontawesome icons, EXCEPT fas-user
 IconPicker::make('icon')
-    ->disallowIcons(['fas-user']); 
+    ->disallowIcons(['fas-user']);
 ```
 
 
@@ -172,7 +170,7 @@ The icon picker comes with two layouts. The default, `Layout::FLOATING` is the s
 The `Layout::ON_TOP` will render the search results always on the page.
 
 ```php
-// 
+//
 IconPicker::make('icon')
     ->layout(Layout::FLOATING) // default
     //or
@@ -184,10 +182,12 @@ Out of the box, the search results render a preview of the icon and their identi
 You are free to customize this using the `->itemTemplate()` option:
 
 ```php
-// Render your.blade.template instead of the default template.  
+// Render your.blade.template instead of the default template.
 // Make sure to pass the $icon as parameter to be able to render it in your view.
 IconPicker::make('icon')
-    ->itemTemplate(fn($icon) => view('your.blade.template', ['icon' => $icon]));
+    ->itemTemplate(
+        fn($icon) => view('your.blade.template', ['icon' => $icon])
+    );
 ```
 
 #### Caching
@@ -202,7 +202,7 @@ To configure a specific IconPicker, these methods are available:
 IconPicker::make('icon')
     // Disable caching
     ->cacheable(false)
-    
+
     // Cache for one hour
     ->cacheDuration(3600);
 ```
