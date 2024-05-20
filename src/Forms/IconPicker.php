@@ -288,6 +288,7 @@ class IconPicker extends Select
         $iconName = str($file->getFilenameWithoutExtension())
             ->after($parentPath . DIRECTORY_SEPARATOR)
             ->replace(DIRECTORY_SEPARATOR, '.')
+            ->basename('.svg')
             ->toString();
 
         return "$prefix-$iconName";
