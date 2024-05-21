@@ -29,6 +29,7 @@ class IconPicker extends Select
     protected bool|Closure $isSearchable = true;
 
     protected Closure|string|Htmlable|null $itemTemplate = null;
+    protected Closure|string|Htmlable|null $placeholderText = null;
 
     protected string $layout = Layout::FLOATING;
 
@@ -70,7 +71,12 @@ class IconPicker extends Select
                 ])->render();
             })
             ->placeholder(function () {
-                return $this->view('filament-icon-picker::placeholder')->render();
+                return $this->view(
+                    'filament-icon-picker::placeholder',
+                    [
+                        'placeholderText' => $this->getPlaceholderText(),
+                    ]
+                )->render();
             });
     }
 
@@ -260,5 +266,21 @@ class IconPicker extends Select
         }
 
         return collect($icons);
+    }
+
+    public function placeholderText(Closure|string|Htmlable|null $placeholderText): static
+    {
+        $this->placeholderText = $placeholderText;
+
+        return $this;
+    }
+
+    public function getPlaceholderText(): string
+    {
+        if ($this->placeholderText) {
+            return $this->evaluate($this->placeholderText);
+        }
+
+        return __('No icon selected');
     }
 }
