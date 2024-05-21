@@ -285,7 +285,7 @@ class IconPicker extends Select
         // - replace every directory separator by a dot
         // - add the prefix at the beginning, followed by a dash
 
-        $iconName = str($file->getFilenameWithoutExtension())
+        $iconName = str($file->getPathname())
             ->after($parentPath . DIRECTORY_SEPARATOR)
             ->replace(DIRECTORY_SEPARATOR, '.')
             ->basename('.svg')
