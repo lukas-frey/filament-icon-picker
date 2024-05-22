@@ -14,6 +14,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
 use Illuminate\View\View;
+use Symfony\Component\Finder\SplFileInfo;
 
 class IconPicker extends Select
 {
@@ -244,21 +245,52 @@ class IconPicker extends Select
         foreach ($sets as $set) {
             $prefix = $set['prefix'];
             foreach ($set['paths'] as $path) {
-                foreach (File::files($path) as $file) {
-                    $filename = $prefix . '-' . $file->getFilenameWithoutExtension();
-
-                    if ($allowedIcons && !in_array($filename, $allowedIcons)) {
-                        continue;
-                    }
-                    if ($disallowedIcons && in_array($filename, $disallowedIcons)) {
+                // To include icons from sub-folders, we use File::allFiles instead of File::files
+                // See https://github.com/blade-ui-kit/blade-icons/blob/ce60487deeb7bcbccd5e69188dc91b4c29622aff/src/IconsManifest.php#L40
+                foreach (File::allFiles($path) as $file) {
+                    // Simply ignore files that aren't SVGs
+                    if ($file->getExtension() !== 'svg') {
                         continue;
                     }
 
-                    $icons[] = $filename;
+                    $iconName = $this->getIconName($file, parentPath: $path, prefix: $prefix);
+
+                    if ($allowedIcons && !in_array($iconName, $allowedIcons)) {
+                        continue;
+                    }
+                    if ($disallowedIcons && in_array($iconName, $disallowedIcons)) {
+                        continue;
+                    }
+
+                    $icons[] = $iconName;
                 }
             }
         }
 
         return collect($icons);
+    }
+
+    /**
+     * @see https://github.com/blade-ui-kit/blade-icons and its IconsManifest.php
+     * @see https://github.com/blade-ui-kit/blade-icons/blob/ce60487deeb7bcbccd5e69188dc91b4c29622aff/src/IconsManifest.php#L78
+     */
+    private function getIconName(SplFileInfo $file, string $parentPath, string $prefix): string {
+        // BladeIcons uses a simple (and view-compliant) naming convention for icon names
+        // `xtra-icon` is the `icon.svg` from the `xtra` icon set
+        // `xtra-dir.icon` is the `icon.svg` from the `dir/` folder from the `xtra` icon set
+        // `xtra-sub.dir.icon` is the `icon.svg` from the `sub/dir/` folder from the `xtra` icon set
+        //
+        // As such, we:
+        // - get the string after the parent directory's path
+        // - replace every directory separator by a dot
+        // - add the prefix at the beginning, followed by a dash
+
+        $iconName = str($file->getPathname())
+            ->after($parentPath . DIRECTORY_SEPARATOR)
+            ->replace(DIRECTORY_SEPARATOR, '.')
+            ->basename('.svg')
+            ->toString();
+
+        return "$prefix-$iconName";
     }
 }
