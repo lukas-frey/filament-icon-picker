@@ -273,6 +273,8 @@ class IconPicker extends Select
                     }
                 }
             }
+
+            return $icons;
         });
 
         return collect($icons);
