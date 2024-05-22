@@ -241,9 +241,10 @@ class IconPicker extends Select
             });
 
 
+        $allowedSetsHash = md5(serialize($sets));
         $allowedHash = md5(serialize($allowedIcons));
         $disallowedHash = md5(serialize($disallowedIcons));
-        $iconsKey = "icon-picker.fields.icons.{$iconsHash}.{$allowedHash}.{$disallowedHash}.{$this->getStatePath()}";
+        $iconsKey = "icon-picker.fields.icons.{$iconsHash}.{$allowedSetsHash}.{$allowedHash}.{$disallowedHash}.{$this->getStatePath()}";
         
         $icons = $this->tryCache($iconsKey, function() use($sets, $allowedIcons, $disallowedIcons) {
             $icons = [];
