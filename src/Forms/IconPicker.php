@@ -240,32 +240,39 @@ class IconPicker extends Select
                 return [$sets, $allowedIcons, $disallowedIcons];
             });
 
-        $icons = [];
 
-        foreach ($sets as $set) {
-            $prefix = $set['prefix'];
-            foreach ($set['paths'] as $path) {
-                // To include icons from sub-folders, we use File::allFiles instead of File::files
-                // See https://github.com/blade-ui-kit/blade-icons/blob/ce60487deeb7bcbccd5e69188dc91b4c29622aff/src/IconsManifest.php#L40
-                foreach (File::allFiles($path) as $file) {
-                    // Simply ignore files that aren't SVGs
-                    if ($file->getExtension() !== 'svg') {
-                        continue;
+        $allowedHash = md5(serialize($allowedIcons));
+        $disallowedHash = md5(serialize($disallowedIcons));
+        $iconsKey = "icon-picker.fields.icons.{$iconsHash}.{$allowedHash}.{$disallowedHash}.{$this->getStatePath()}";
+        
+        $icons = $this->tryCache($iconsKey, function() use($sets, $allowedIcons, $disallowedIcons) {
+            $icons = [];
+
+            foreach ($sets as $set) {
+                $prefix = $set['prefix'];
+                foreach ($set['paths'] as $path) {
+                    // To include icons from sub-folders, we use File::allFiles instead of File::files
+                    // See https://github.com/blade-ui-kit/blade-icons/blob/ce60487deeb7bcbccd5e69188dc91b4c29622aff/src/IconsManifest.php#L40
+                    foreach (File::allFiles($path) as $file) {
+                        // Simply ignore files that aren't SVGs
+                        if ($file->getExtension() !== 'svg') {
+                            continue;
+                        }
+
+                        $iconName = $this->getIconName($file, parentPath: $path, prefix: $prefix);
+
+                        if ($allowedIcons && !in_array($iconName, $allowedIcons)) {
+                            continue;
+                        }
+                        if ($disallowedIcons && in_array($iconName, $disallowedIcons)) {
+                            continue;
+                        }
+
+                        $icons[] = $iconName;
                     }
-
-                    $iconName = $this->getIconName($file, parentPath: $path, prefix: $prefix);
-
-                    if ($allowedIcons && !in_array($iconName, $allowedIcons)) {
-                        continue;
-                    }
-                    if ($disallowedIcons && in_array($iconName, $disallowedIcons)) {
-                        continue;
-                    }
-
-                    $icons[] = $iconName;
                 }
             }
-        }
+        });
 
         return collect($icons);
     }
