@@ -166,7 +166,8 @@ class IconPicker extends Select
     /**
      * Enact the preload logic (if, and only if, the user wants to preload the icons)
      */
-    protected function doPreload(): void {
+    protected function doPreload(): void
+    {
         if (!$this->isPreloaded()) {
             return;
         }
@@ -197,6 +198,7 @@ class IconPicker extends Select
         $this->doPreload();
         return parent::getOptions();
     }
+
     public function relationship(string|Closure|null $name = null, string|Closure|null $titleAttribute = null, ?Closure $modifyQueryUsing = null, bool $ignoreRecord = false): static
     {
         throw new \BadMethodCallException('Method not allowed.');
