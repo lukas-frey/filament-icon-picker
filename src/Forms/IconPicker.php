@@ -199,59 +199,112 @@ class IconPicker extends Select
         return parent::getOptions();
     }
 
+
+     /**
+     * Marks the calling method as not allowed (whether because it's not supported or because it's meaningless when using this field)
+     * @throws \BadMethodCallException Always
+     */
+    protected function markAsNotAllowed(string $reason = 'Method not allowed.'): void {
+        throw new \BadMethodCallException($reason);
+    }
+
+    /**
+     * @deprecated Method inherited from `\Filament\Forms\Components\Select` but not supported (or meaningless) when using this field
+     * @throws \BadMethodCallException
+     */
     public function relationship(string|Closure|null $name = null, string|Closure|null $titleAttribute = null, ?Closure $modifyQueryUsing = null, bool $ignoreRecord = false): static
     {
-        throw new \BadMethodCallException('Method not allowed.');
+        $this->markAsNotAllowed();
     }
 
+    /**
+     * @deprecated Method inherited from `\Filament\Forms\Components\Select` but not supported (or meaningless) when using this field
+     * @throws \BadMethodCallException
+     */
     public function options(Arrayable|Closure|array|string|null $options): static
     {
-        throw new \BadMethodCallException('Method not allowed.');
+        $this->markAsNotAllowed();
     }
 
+    /**
+     * @deprecated Method inherited from `\Filament\Forms\Components\Select` but not supported (or meaningless) when using this field
+     * @throws \BadMethodCallException
+     */
     public function allowHtml(bool|Closure $condition = true): static
     {
-        throw new \BadMethodCallException('Method not allowed.');
+        $this->markAsNotAllowed();
     }
 
+    /**
+     * @deprecated Method inherited from `\Filament\Forms\Components\Select` but not supported (or meaningless) when using this field
+     * @throws \BadMethodCallException
+     */
     public function searchable(bool|array|Closure $condition = true): static
     {
-        throw new \BadMethodCallException('Method not allowed.');
+        $this->markAsNotAllowed();
     }
 
+    /**
+     * @deprecated Method inherited from `\Filament\Forms\Components\Select` but not supported (or meaningless) when using this field
+     * @throws \BadMethodCallException
+     */
     public function getSearchResultsUsing(?Closure $callback): static
     {
-        throw new \BadMethodCallException('Method not allowed.');
+        $this->markAsNotAllowed();
     }
 
+    /**
+     * @deprecated Method inherited from `\Filament\Forms\Components\Select` but not supported (or meaningless) when using this field
+     * @throws \BadMethodCallException
+     */
     public function getOptionLabelFromRecordUsing(?Closure $callback): static
     {
-        throw new \BadMethodCallException('Method not allowed.');
+        $this->markAsNotAllowed();
     }
 
+    /**
+     * @deprecated Method inherited from `\Filament\Forms\Components\Select` but not supported (or meaningless) when using this field
+     * @throws \BadMethodCallException
+     */
     public function createOptionUsing(?Closure $callback): static
     {
-        throw new \BadMethodCallException('Method not allowed.');
+        $this->markAsNotAllowed();
     }
 
+    /**
+     * @deprecated Method inherited from `\Filament\Forms\Components\Select` but not supported (or meaningless) when using this field
+     * @throws \BadMethodCallException
+     */
     public function createOptionAction(?Closure $callback): static
     {
-        throw new \BadMethodCallException('Method not allowed.');
+        $this->markAsNotAllowed();
     }
 
+    /**
+     * @deprecated Method inherited from `\Filament\Forms\Components\Select` but not supported (or meaningless) when using this field
+     * @throws \BadMethodCallException
+     */
     public function createOptionForm(array|Closure|null $schema): static
     {
-        throw new \BadMethodCallException('Method not allowed.');
+        $this->markAsNotAllowed();
     }
 
+    /**
+     * @deprecated Method inherited from `\Filament\Forms\Components\Select` but not supported (or meaningless) when using this field
+     * @throws \BadMethodCallException
+     */
     public function schema(array|Closure $components): static
     {
-        throw new \BadMethodCallException('Method not allowed.');
+        $this->markAsNotAllowed();
     }
 
+    /**
+     * @deprecated Method inherited from `\Filament\Forms\Components\Select` but not supported (or meaningless) when using this field
+     * @throws \BadMethodCallException
+     */
     public function multiple(bool|Closure $condition = true): static
     {
-        throw new \BadMethodCallException('Method not allowed.');
+        $this->markAsNotAllowed();
     }
 
     private function loadIcons(): Collection
