@@ -164,6 +164,43 @@ class IconPicker extends Select
     }
 
     /**
+     * Enact the preload logic (if, and only if, the user wants to preload the icons)
+     */
+    protected function doPreload(): void
+    {
+        if (!$this->isPreloaded()) {
+            return;
+        }
+
+        // To actually preload the icons, we trigger a search on the empty string.
+        // `str_contains` will return true for any haystack if the needle is the empty string.
+        // This is exactly how we know we get all the icons AND respect the user-land
+        // configuration applied to this field instance.
+        $options = $this->getSearchResults('');
+
+        // To avoid recursively and needlessly loading the icons each time
+        // anything requests the options or uses the `doPreload` method,
+        // we set the `preload` option to false right before setting the
+        // resolved/computed icons.
+        $this->preload(false);
+
+        // We delegate back to the parent's `options` method as a setter
+        // to keep our own as a throwing-method in user-land.
+        // This sets the icons on the back-end and front-end.
+        // It also make it work as soon as the component is mounted,
+        // which means there's no need for user interaction to get the
+        // full list of options loaded directly.
+        parent::options($options);
+    }
+
+    public function getOptions(): array
+    {
+        $this->doPreload();
+        return parent::getOptions();
+    }
+
+
+     /**
      * Marks the calling method as not allowed (whether because it's not supported or because it's meaningless when using this field)
      * @throws \BadMethodCallException Always
      */
