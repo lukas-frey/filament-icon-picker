@@ -17,6 +17,10 @@ This can be useful for when you want to customize icons rendered on your fronten
 
 https://user-images.githubusercontent.com/10926334/194676916-446eb432-c859-4f94-bf52-2b1ee4416a93.mov
 
+<video width="320" height="240" controls>
+  <source src="https://user-images.githubusercontent.com/10926334/194676916-446eb432-c859-4f94-bf52-2b1ee4416a93.mov" type="video/mp4">
+</video>
+
 
 
 ## Installation
