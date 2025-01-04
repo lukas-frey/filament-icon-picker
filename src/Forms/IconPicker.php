@@ -50,24 +50,22 @@ class IconPicker extends Select
 
             return $this->tryCache($key, function () use ($component, $search, $icons) {
                 return collect($icons)
-                    ->filter(fn(string $icon) => str_contains($icon, $search))
+                    ->filter(fn(string $icon) => str_contains($icon, $search) || str_contains($this->getIconOptionLabel($icon), $search))
                     ->mapWithKeys(function (string $icon) use ($component) {
-                        return [$icon => $component->getItemTemplate(['icon' => $icon])];
+                        return [$icon => $component->getItemTemplate([
+                            'icon' => $icon,
+                            'optionLabel' => $this->getIconOptionLabel($icon)
+                        ])];
                     })
                     ->toArray();
             });
-        };
-
-        $this->getOptionLabelUsing = function (IconPicker $component, $value) {
-            if ($value) {
-                return $component->getItemTemplate(['icon' => $value]);
-            }
         };
 
         $this
             ->itemTemplate(function (IconPicker $component, string $icon) {
                 return \view('filament-icon-picker::item', [
                     'icon' => $icon,
+                    'optionLabel' => $this->getIconOptionLabel($icon)
                 ])->render();
             })
             ->placeholder(function () {
@@ -161,6 +159,14 @@ class IconPicker extends Select
         }
 
         return $results;
+    }
+
+    protected function getIconOptionLabel(string $icon): ?string
+    {
+        return $this->evaluate($this->getOptionLabelUsing, [
+            'icon' => $icon,
+            'value' => $icon
+        ]);
     }
 
     /**

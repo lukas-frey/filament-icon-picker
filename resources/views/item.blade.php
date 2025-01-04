@@ -9,6 +9,6 @@
 			{{-- Ugly fix for choices.js not registering clicks on SVGs. --}}
 			<div class="w-full h-full absolute z-10"></div>
 		</div>
-		<small class="w-full text-center grow-0 shrink-0 h-4 truncate">{{$icon}}</small>
+		<small class="w-full text-center grow-0 shrink-0 h-4 truncate">{{ $optionLabel ?? $icon }}</small>
 	</div>
 </div>
