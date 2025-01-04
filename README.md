@@ -167,6 +167,20 @@ IconPicker::make('icon')
     ->disallowIcons(['fas-user']);
 ```
 
+#### Custom Icon Option Label
+By default, the options display their labels using the icon's name. However, you can customize
+these labels to provide a more user-friendly or localized experience.
+
+```php
+// Customize the given icon label within a closure. Use translations __() if needed.
+IconPicker::make('icon')
+    ->getOptionLabelUsing(fn (string $icon) => match ($icon) {
+        'heroicon-o-user' => 'User',
+        'heroicon-o-tag' => 'Tag',
+        'chat-bubble-left' => 'Chat'
+        default => $icon
+    });
+```
 
 #### Layout
 The icon picker comes with two layouts. The default, `Layout::FLOATING` is the standard layout used in Filament Selects.  The search results will appear in a pop over window.
