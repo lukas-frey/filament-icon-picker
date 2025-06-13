@@ -20,7 +20,7 @@ class IconPickerProServiceProvider extends PackageServiceProvider
 {
     public static string $name = 'filament-icon-picker-pro';
 
-    public static string $viewNamespace = 'filament-icon-picker-pro';
+    public static string $viewNamespace = 'guava-icon-picker';
 
     public function configurePackage(Package $package): void
     {
