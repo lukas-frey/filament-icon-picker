@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Guava\IconPickerPro\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class IconPickerProCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'filament-icon-picker-pro';
 
     public $description = 'My command';
 
