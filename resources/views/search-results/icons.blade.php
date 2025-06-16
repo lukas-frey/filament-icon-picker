@@ -6,7 +6,7 @@
     'withTooltips',
 ])
 
-<div class="grid grid-cols-12 gap-1.5 max-h-96 overflow-scroll p-px">
+<div class="grid grid-cols-6 lg:grid-cols-12 gap-1.5 max-h-64 overflow-scroll p-px">
     <x-filament::section x-cloak secondary x-show="isLoading" class="col-span-full">
         <div class="flex flex-col gap-2 items-center text-center">
             {{generate_loading_indicator_html()}}
@@ -19,7 +19,7 @@
              class="flex items-center justify-center bg-gray-50 text-gray-600  p-2 rounded-lg ring-1 ring-gray-950/10 dark:bg-white/5  dark:text-gray-400 dark:ring-white/20"
              x-on:click.prevent="updateState(icon)"
              x-bind:class="{
-                'bg-primary-500 text-white': state == icon.id
+                'bg-primary-500! text-white!': state == icon.id
             }"
              @if($withTooltips)
                  x-tooltip="{

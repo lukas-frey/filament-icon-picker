@@ -10,6 +10,7 @@
 	$state = $field->getState();
 	$isDropdown = $isDropdown();
 	$isDisabled = $isDisabled();
+	$shouldCloseOnSelect = $shouldCloseOnSelect();
 @endphp
 
 <x-dynamic-component
@@ -21,6 +22,8 @@
             x-load-src="{{ FilamentAsset::getAlpineComponentSrc('icon-picker-component', 'guava/filament-icon-picker-pro') }}"
             x-data="iconPickerComponent({
                 state: $wire.{{ $applyStateBindingModifiers("\$entangle('{$statePath}')") }},
+                isDropdown: @js($isDropdown),
+                shouldCloseOnSelect: @js($shouldCloseOnSelect),
                 getSetUsing: async(state) => {
                     return await $wire.callSchemaComponentMethod(@js($key), 'getSetJs', { state })
                 },
@@ -35,50 +38,53 @@
             }}
     >
         <x-filament::input.wrapper
+                x-bind="dropdownTrigger"
+                class="w-full relative"
                 :disabled="$isDisabled"
-                inline-suffix
+                :inline-suffix="true"
                 x-bind:class="{
-            '[&_.fi-input-wrp-suffix]:hidden': ! state
-        }">
+                    '[&_.fi-input-wrp-prefix]:hidden': ! state && ! isLoading,
+                    '[&_.fi-input-wrp-suffix]:hidden': ! state,
+                }"
+        >
             <x-slot:prefix>
                 <div x-show="isLoading && !selectedIcon">{{generate_loading_indicator_html()}}</div>
                 <div x-html="selectedIcon"></div>
             </x-slot:prefix>
-            @if($isDropdown && !$isDisabled)
-                <x-filament::dropdown width="md" placement="bottom-start">
-                    <x-slot:trigger>
-                        <x-filament::input readonly x-model="state"/>
-                    </x-slot:trigger>
 
-                    <div class="p-2">
+            <x-filament::input readonly x-model="state"/>
 
-                        <x-guava-icon-picker::search :field="$field"
-                                                     :sets="$getSets()"
-                                                     :search-prompt="$getSearchPrompt()"
-                        />
-                    </div>
-                </x-filament::dropdown>
-            @else
-                <x-filament::input readonly x-model="state"/>
-            @endif
             @if(!$isDisabled)
                 <x-slot:suffix>
-                    <button class="opacity-50 bg-no-repeat bg-center dark:invert" @style([
-                        "width: 10px; height: 10px",
-                        "background-size: 0.7142em 0.7142em;",
-                        "background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjEiIGhlaWdodD0iMjEiIHZpZXdCb3g9IjAgMCAyMSAyMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSIjMDAwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0yLjU5Mi4wNDRsMTguMzY0IDE4LjM2NC0yLjU0OCAyLjU0OEwuMDQ0IDIuNTkyeiIvPjxwYXRoIGQ9Ik0wIDE4LjM2NEwxOC4zNjQgMGwyLjU0OCAyLjU0OEwyLjU0OCAyMC45MTJ6Ii8+PC9nPjwvc3ZnPg==')"
-                        ]) x-on:click.prevent="updateState(null)"></button>
+                        {{
+                            generate_icon_html(
+                                'heroicon-s-x-mark',
+                                attributes: (new ComponentAttributeBag())
+                                    ->merge([
+                                        'x-on:click.prevent.stop' => 'updateState(null)'
+                                    ])
+                                    ->class([
+                                        'opacity-50 text-black dark:text-white m-auto hover:cursor-pointer'
+                                    ])
+                        )}}
                 </x-slot:suffix>
             @endif
-        </x-filament::input.wrapper>
 
-        @if(!$isDropdown && !$isDisabled)
-            <x-filament::section compact>
+            @if($isDropdown && !$isDisabled)
                 <x-guava-icon-picker::search :field="$field"
                                              :sets="$getSets()"
                                              :search-prompt="$getSearchPrompt()"
+                                             :is-dropdown="$isDropdown"
                 />
-            </x-filament::section>
+            @endif
+        </x-filament::input.wrapper>
+
+        @if(! $isDropdown && ! $isDisabled)
+            <x-guava-icon-picker::search :field="$field"
+                                         :sets="$getSets()"
+                                         :search-prompt="$getSearchPrompt()"
+                                         :is-dropdown="$isDropdown"
+            />
         @endif
     </div>
 </x-dynamic-component>

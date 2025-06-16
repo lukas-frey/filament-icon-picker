@@ -2,11 +2,16 @@ import Fuse from 'fuse.js';
 
 export default function iconPickerComponent({
                                                 state,
+                                                isDropdown,
+                                                shouldCloseOnSelect,
                                                 getSetUsing,
                                                 getIconsUsing,
                                             }) {
     return {
         state,
+        isDropdown,
+        shouldCloseOnSelect,
+        dropdownOpen: false,
         set: null,
         icons: [],
         search: '',
@@ -121,6 +126,22 @@ export default function iconPickerComponent({
             },
         },
 
+        dropdownTrigger: {
+            ['x-on:click.prevent']() {
+                this.dropdownOpen = true;
+            }
+        },
+
+        dropdownMenu: {
+            ['x-show']() {
+                return !this.isDropdown || this.dropdownOpen
+            },
+            ['x-on:click.outside']() {
+                this.dropdownOpen = false;
+            }
+            // [x-show="dropdown" x-on:click.outside="dropdown = false"]
+        },
+
         addSearchResultsChunk() {
             const endIndex = this.resultsIndex + this.resultsPerPage;
             this.resultsVisible.push(...this.results.slice(this.resultsIndex, endIndex));
@@ -131,6 +152,9 @@ export default function iconPickerComponent({
             if (icon) {
                 this.state = icon.id;
                 this.selectedIcon = icon.html;
+                if (this.shouldCloseOnSelect) {
+                    this.$nextTick(() => this.dropdownOpen = false);
+                }
             } else {
                 this.state = null;
                 this.selectedIcon = null;

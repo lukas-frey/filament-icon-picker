@@ -7,6 +7,7 @@ use Filament\Forms\Components\Field;
 use Filament\Support\Components\Attributes\ExposedLivewireMethod;
 use Guava\IconPickerPro\Actions\UploadCustomIcon;
 use Guava\IconPickerPro\Forms\Components\Concerns\CanBeScopedToModel;
+use Guava\IconPickerPro\Forms\Components\Concerns\CanCloseOnSelect;
 use Guava\IconPickerPro\Forms\Components\Concerns\CanUploadCustomIcons;
 use Guava\IconPickerPro\Forms\Components\Concerns\CanUseDropdown;
 use Guava\IconPickerPro\Forms\Components\Concerns\HasSearchResultsView;
@@ -21,6 +22,7 @@ class IconPicker extends Field
     use CanBeSearchable;
     use CanUploadCustomIcons;
     use CanUseDropdown;
+    use CanCloseOnSelect;
     use HasSearchResultsView;
 
     public function getHintActions(): array

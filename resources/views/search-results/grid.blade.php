@@ -14,14 +14,14 @@
                              x-on:click.prevent="updateState(icon)"
                              secondary
                              x-bind:class="{
-                                'bg-primary-500 text-white': state == icon.id
+                                'bg-primary-500! text-white!': state == icon.id
                              }"
         >
             <div class="flex flex-col gap-2 items-center text-center">
                 <div x-html="icon.html"></div>
                 <span class="text-gray-500 dark:text-gray-400 mt-auto mb-0"
                       x-bind:class="{
-                        'text-white': state == icon.id
+                        'text-white!': state == icon.id
                       }"
                       x-text="icon.label"></span>
             </div>
