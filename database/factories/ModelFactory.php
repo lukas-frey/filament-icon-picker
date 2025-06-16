@@ -1,6 +1,6 @@
 <?php
 
-namespace Guava\IconPickerPro\Database\Factories;
+namespace Guava\IconPickerPro\Forms\Components\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 

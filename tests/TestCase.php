@@ -1,6 +1,6 @@
 <?php
 
-namespace Guava\IconPickerPro\Tests;
+namespace Guava\IconPickerPro\Forms\Components\Tests;
 
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
-use Guava\IconPickerPro\IconPickerProServiceProvider;
+use Guava\IconPickerPro\Forms\Components\IconPickerProServiceProvider;
 
 class TestCase extends Orchestra
 {

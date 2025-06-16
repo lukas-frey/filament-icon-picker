@@ -2,19 +2,23 @@
 
 namespace Guava\IconPickerPro;
 
+use BladeUI\Icons\Factory as IconFactory;
 use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
+use Guava\IconPickerPro\Commands\IconPickerProCommand;
+use Guava\IconPickerPro\Icons\Facades\IconManager;
+use Guava\IconPickerPro\Testing\TestsIconPickerPro;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Blade;
 use Livewire\Features\SupportTesting\Testable;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Guava\IconPickerPro\Commands\IconPickerProCommand;
-use Guava\IconPickerPro\Testing\TestsIconPickerPro;
+use Storage;
 
 class IconPickerProServiceProvider extends PackageServiceProvider
 {
@@ -55,10 +59,27 @@ class IconPickerProServiceProvider extends PackageServiceProvider
 
         if (file_exists($package->basePath('/../resources/views'))) {
             $package->hasViews(static::$viewNamespace);
+//            $package->hasViewComponent('ipp', 'components.icon-search');
+//            Blade::component('ipp::icon-search', 'components.icon-search');
         }
     }
 
-    public function packageRegistered(): void {}
+    public function packageRegistered(): void
+    {
+        $this->callAfterResolving(IconFactory::class, function (IconFactory $factory) {
+            Storage::disk('public')->makeDirectory('icon-picker-pro-icons');
+
+            $factory->add('icon-picker-pro-icons', [
+                'path' => 'icon-picker-pro-icons',
+                'disk' => 'public',
+                'prefix' => '_ipp_icons',
+            ]);
+        });
+
+        //        dd(IconManager::getSets());
+        //        dd(IconManager::getSets()['heroicons']->getIcons());
+        //        dd(IconManager::getSets()['icon-picker-pro-icons']->getIcons());
+    }
 
     public function packageBooted(): void
     {
@@ -100,9 +121,9 @@ class IconPickerProServiceProvider extends PackageServiceProvider
     protected function getAssets(): array
     {
         return [
-            // AlpineComponent::make('filament-icon-picker-pro', __DIR__ . '/../resources/dist/components/filament-icon-picker-pro.js'),
-            Css::make('filament-icon-picker-pro-styles', __DIR__ . '/../resources/dist/filament-icon-picker-pro.css'),
-            Js::make('filament-icon-picker-pro-scripts', __DIR__ . '/../resources/dist/filament-icon-picker-pro.js'),
+            AlpineComponent::make('icon-picker-component', __DIR__ . '/../resources/dist/components/icon-picker-component.js'),
+            //            Css::make('filament-icon-picker-pro-styles', __DIR__ . '/../resources/dist/filament-icon-picker-pro.css'),
+            //            Js::make('filament-icon-picker-pro-scripts', __DIR__ . '/../resources/dist/filament-icon-picker-pro.js'),
         ];
     }
 
