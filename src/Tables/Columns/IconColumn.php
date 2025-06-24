@@ -10,6 +10,7 @@ use Filament\Support\Enums\IconSize;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Columns\Concerns\HasColor;
 use Filament\Tables\View\Components\Columns\IconColumnComponent\IconComponent;
+use Guava\IconPickerPro\Icons\Facades\IconManager;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Js;
 use Illuminate\View\ComponentAttributeBag;
@@ -85,6 +86,10 @@ class IconColumn extends Column implements HasEmbeddedView
         $state = $this->getState();
         $color = $this->getColor($state);
         $size = $this->getSize($state);
+
+        if (! IconManager::getIcon($state)) {
+            $state = null;
+        }
 
         $attributes = $this->getExtraAttributeBag()
             ->class([
