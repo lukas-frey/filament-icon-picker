@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class IconSet
 {
     public string $label;
+
     private Filesystem $filesystem;
 
     private ?FilesystemFactory $disks;
@@ -39,9 +40,6 @@ class IconSet
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getPrefix(): ?string
     {
         return $this->prefix;
@@ -61,11 +59,12 @@ class IconSet
                     ->after($path)
                     ->trim(DIRECTORY_SEPARATOR)
                     ->beforeLast(".{$file->getExtension()}")
-                    ->replace(DIRECTORY_SEPARATOR, '.');
+                    ->replace(DIRECTORY_SEPARATOR, '.')
+                ;
 
                 $id = "$this->prefix-$name";
 
-                if ($this->custom && $scopedTo) {
+                if ($this->custom) {
                     if (! Validator::make(['icon' => $id], ['icon' => new VerifyIconScope($scopedTo)])->passes()) {
                         continue;
                     }

@@ -9,12 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 class VerifyIconScope implements ValidationRule
 {
     public function __construct(
-        private Model $scopedTo,
+        private ?Model $scopedTo,
     ) {}
 
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $prefix = str($value)->before('-');
+        $prefix = str($value)->before('-')->toString();
         $scope = str($value)->after('-')->before('.')->toString();
 
         // TODO: replace magic value
@@ -23,7 +23,7 @@ class VerifyIconScope implements ValidationRule
         }
 
         // Custom icon without scope - should not be possible
-        if (! empty($scope)) {
+        if (empty($scope)) {
             $fail('Scope missing for custom icon.');
         }
 
@@ -32,8 +32,12 @@ class VerifyIconScope implements ValidationRule
         }
     }
 
-    private function getScopeId(Model $model): string
+    private function getScopeId(?Model $model): string
     {
+        if ($model === null) {
+            return 'unscoped';
+        }
+
         return md5("{$model->getMorphClass()}::{$model->getKey()}");
     }
 }
