@@ -67,9 +67,11 @@ class IconPicker extends Field
     public function getSets()
     {
         return IconManager::getSets()
-            ->when(! $this->isCustomIconsUploadEnabled(),
-            fn (Collection $sets) => $sets->filter(fn (IconSet $set) => ! $set->custom)
-            );
+            ->when(
+                ! $this->isCustomIconsUploadEnabled(),
+                fn (Collection $sets) => $sets->filter(fn (IconSet $set) => ! $set->custom)
+            )
+        ;
     }
 
     public function getState(): mixed
