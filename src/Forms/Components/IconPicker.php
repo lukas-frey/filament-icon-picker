@@ -13,6 +13,7 @@ use Guava\IconPickerPro\Forms\Components\Concerns\CanUploadCustomIcons;
 use Guava\IconPickerPro\Forms\Components\Concerns\CanUseDropdown;
 use Guava\IconPickerPro\Forms\Components\Concerns\HasSearchResultsView;
 use Guava\IconPickerPro\Icons\Facades\IconManager;
+use Guava\IconPickerPro\Icons\IconSet;
 use Guava\IconPickerPro\Validation\VerifyIcon;
 use Guava\IconPickerPro\Validation\VerifyIconScope;
 use Illuminate\Support\Collection;
@@ -65,7 +66,10 @@ class IconPicker extends Field
 
     public function getSets()
     {
-        return IconManager::getSets();
+        return IconManager::getSets()
+            ->when(! $this->isCustomIconsUploadEnabled(),
+            fn (Collection $sets) => $sets->filter(fn (IconSet $set) => ! $set->custom)
+            );
     }
 
     public function getState(): mixed
@@ -108,8 +112,12 @@ class IconPicker extends Field
     #[Renderless]
     public function getIconSvgJs(?string $id): ?string
     {
-        if (IconManager::getIcon($id)) {
+        if (IconManager::getIcon($id, false)) {
             return generate_icon_html($id)?->toHtml();
+        }
+
+        if ($id === '_ipp_icons-f01b37a48c0c4decf31089f5b5382e23.test') {
+            dd(IconManager::getIcon($id));
         }
 
         return null;

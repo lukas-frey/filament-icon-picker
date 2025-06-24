@@ -25,7 +25,7 @@ class IconSet
         protected array $attributes = [],
         protected array $paths = [],
         protected ?string $disk = null,
-        protected bool $custom = false,
+        public bool $custom = false,
     ) {
         $this->filesystem = app(Filesystem::class);
         $this->disks = app(FilesystemFactory::class);
@@ -45,7 +45,7 @@ class IconSet
         return $this->prefix;
     }
 
-    public function getIcons(?Model $scopedTo = null): Collection
+    public function getIcons(?Model $scopedTo = null, bool $checkScopes = true): Collection
     {
         $icons = collect();
         foreach ($this->paths as $path) {
@@ -64,7 +64,7 @@ class IconSet
 
                 $id = "$this->prefix-$name";
 
-                if ($this->custom) {
+                if ($this->custom && $checkScopes) {
                     if (! Validator::make(['icon' => $id], ['icon' => new VerifyIconScope($scopedTo)])->passes()) {
                         continue;
                     }

@@ -19,7 +19,7 @@ class IconManager
         ;
     }
 
-    public function getIcons(null | string | IconSet $set = null, ?Model $scope = null): Collection
+    public function getIcons(null | string | IconSet $set = null, ?Model $scope = null, bool $checkScope = true): Collection
     {
         if ($set instanceof IconSet) {
             $set = $set->getId();
@@ -30,7 +30,7 @@ class IconManager
                 $set,
                 fn (Collection $sets) => $sets->filter(fn (IconSet $iconSet) => $iconSet->getId() === $set)
             )
-            ->map(fn (IconSet $is) => $is->getIcons($scope))
+            ->map(fn (IconSet $is) => $is->getIcons($scope, $checkScope))
             ->collapse()
         ;
     }
@@ -47,8 +47,8 @@ class IconManager
         return $this->getSetByPrefix($prefix);
     }
 
-    public function getIcon(?string $id): ?Icon
+    public function getIcon(?string $id, bool $checkScope = false): ?Icon
     {
-        return $this->getIcons()->first(fn (Icon $icon) => $icon->id === $id);
+        return $this->getIcons(checkScope: $checkScope)->first(fn (Icon $icon) => $icon->id === $id);
     }
 }

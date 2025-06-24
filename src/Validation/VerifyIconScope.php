@@ -26,7 +26,6 @@ class VerifyIconScope implements ValidationRule
         if (empty($scope)) {
             $fail('Scope missing for custom icon.');
         }
-
         if ($this->getScopeId($this->scopedTo) !== $scope) {
             $fail('Unauthorized icon scope.');
         }
