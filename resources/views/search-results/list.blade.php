@@ -3,12 +3,6 @@
 @endphp
 
 <div class="flex flex-col gap-2 max-h-96 overflow-scroll p-px">
-    <div x-cloak secondary x-show="isLoading" class="col-span-full">
-        <div class="flex flex-row gap-2 items-center text-center bg-gray-50 p-2 rounded-lg ring-1 ring-gray-950/10">
-            {{generate_loading_indicator_html()}}
-            <span class="text-gray-500 dark:text-gray-400 mt-auto mb-0">Searching...</span>
-        </div>
-    </div>
     <template x-for="icon in resultsVisible" :key="icon.id">
         <div role="button"
              class="bg-gray-50 text-gray-600 p-2 rounded-lg ring-1 ring-gray-950/10 dark:bg-white/5  dark:text-gray-400 dark:ring-white/20"

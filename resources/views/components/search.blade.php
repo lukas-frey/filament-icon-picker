@@ -27,9 +27,13 @@
             </x-filament::input.select>
 
         </x-filament::input.wrapper>
+
         <x-filament::input.wrapper>
             <x-filament::input x-bind="searchInput" :placeholder="$searchPrompt"></x-filament::input>
         </x-filament::input.wrapper>
+
+        <x-guava-icon-picker::searching :field="$field" />
+        <x-guava-icon-picker::no-results-found :field="$field"/>
 
         {{ $field->getSearchResultsViewComponent() }}
     </div>
