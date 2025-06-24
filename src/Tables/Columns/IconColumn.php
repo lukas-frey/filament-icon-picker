@@ -2,6 +2,7 @@
 
 namespace Guava\IconPickerPro\Tables\Columns;
 
+use BackedEnum;
 use Closure;
 use Filament\Support\Components\Contracts\HasEmbeddedView;
 use Filament\Support\Enums\Alignment;
@@ -9,6 +10,7 @@ use Filament\Support\Enums\IconSize;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Columns\Concerns\HasColor;
 use Filament\Tables\View\Components\Columns\IconColumnComponent\IconComponent;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Js;
 use Illuminate\View\ComponentAttributeBag;
 
@@ -48,6 +50,36 @@ class IconColumn extends Column implements HasEmbeddedView
         return $size;
     }
 
+    public function placeholder(Htmlable | string | Closure | null | BackedEnum $placeholder): static
+    {
+        if ($placeholder instanceof BackedEnum) {
+            $placeholder = $this->getIconPlaceholder($placeholder);
+        }
+
+        return parent::placeholder($placeholder);
+    }
+
+    public function getPlaceholder(): string | Htmlable | null
+    {
+        $placeholder = parent::getPlaceholder();
+
+        if ($placeholder instanceof BackedEnum) {
+            return $this->getIconPlaceholder($placeholder);
+        }
+
+        return $placeholder;
+    }
+
+    private function getIconPlaceholder(BackedEnum $placeholder): ?string
+    {
+        return generate_icon_html(
+            $placeholder,
+            attributes: (new ComponentAttributeBag)
+        )
+            ->toHtml()
+        ;
+    }
+
     public function toEmbeddedHtml(): string
     {
         $state = $this->getState();
@@ -71,18 +103,20 @@ class IconColumn extends Column implements HasEmbeddedView
 
         ob_start(); ?>
 
-        <div <?= $attributes->toHtml() ?>>
-            <?= generate_icon_html($state, attributes: (new ComponentAttributeBag)
-                ->merge([
-                    'x-tooltip' => filled($tooltip = $this->getTooltip($state))
-                        ? '{
+        <div <?= $attributes->class(['fi-ta-placeholder' => empty($state)])->toHtml() ?>>
+            <?= $state
+                ? generate_icon_html($state, attributes: (new ComponentAttributeBag)
+                    ->merge([
+                        'x-tooltip' => filled($tooltip = $this->getTooltip($state))
+                            ? '{
                                 content: ' . Js::from($tooltip) . ',
                                 theme: $store.theme,
                             }'
-                        : null,
-                ], escape: false)
-                ->color(IconComponent::class, $color), size: $size ?? IconSize::Large)
-                ->toHtml() ?>
+                            : null,
+                    ], escape: false)
+                    ->color(IconComponent::class, $color), size: $size ?? IconSize::Large)
+                    ->toHtml()
+                : $this->getPlaceholder() ?>
         </div>
 
         <?php return ob_get_clean();
