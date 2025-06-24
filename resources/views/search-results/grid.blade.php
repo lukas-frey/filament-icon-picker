@@ -25,7 +25,7 @@
             </div>
         </x-filament::section>
     </template>
-    <template x-for="icon in resultsVisible">
+    <template x-for="icon in resultsVisible" :key="icon.id">
         <x-filament::section role="button"
                              x-on:click.prevent="updateState(icon)"
                              secondary
@@ -35,7 +35,7 @@
                              }"
         >
             <div class="flex flex-col gap-2 items-center text-center">
-                <div x-html="icon.html"></div>
+                <div x-intersect="setElementIcon($el, icon.id)">{{generate_loading_indicator_html()}}</div>
                 <span class="text-gray-500 dark:text-gray-400 mt-auto mb-0"
                       x-bind:class="{
                         'text-white!': state == icon.id

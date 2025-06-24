@@ -14,10 +14,6 @@ trait CanBeScopedToModel
     {
         $this->scopedTo = $record;
 
-        if ($record) {
-            $this->rule(new VerifyIconScope($record));
-        }
-
         return $this;
     }
 

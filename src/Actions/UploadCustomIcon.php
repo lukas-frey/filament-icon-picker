@@ -7,6 +7,7 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Utilities\Get;
 use Guava\IconPickerPro\Forms\Components\IconPicker;
+use Illuminate\Support\Stringable;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class UploadCustomIcon extends Action
@@ -22,7 +23,7 @@ class UploadCustomIcon extends Action
             ->label(__('filament-icon-picker-pro::actions.upload-custom-icon.label'))
             ->icon('heroicon-c-arrow-up-tray')
             ->modal()
-            ->modalIcon(fn(UploadCustomIcon $action) => $action->getIcon())
+            ->modalIcon(fn (UploadCustomIcon $action) => $action->getIcon())
             ->schema(fn (IconPicker $component) => [
                 FileUpload::make('file')
                     ->label(__('filament-icon-picker-pro::actions.upload-custom-icon.schema.file.label'))
@@ -34,6 +35,8 @@ class UploadCustomIcon extends Action
                         if ($model = $component->getScopedTo()) {
                             $scopeId = md5("{$model->getMorphClass()}::{$model->getKey()}");
                             $directory = $directory->append(DIRECTORY_SEPARATOR, $scopeId);
+                        } else {
+                            $directory = $directory->append(DIRECTORY_SEPARATOR, 'unscoped');
                         }
 
                         return $directory;
@@ -59,12 +62,18 @@ class UploadCustomIcon extends Action
                 $id = str(data_get($data, 'label'))
                     ->lower()
                     ->kebab()
+                    ->when(
+                        $scope = $component->getScopedTo(),
+                        function (Stringable $string) use ($scope) {
+                            $scopeId = md5("{$scope->getMorphClass()}::{$scope->getKey()}");
+
+                            return $string->prepend("$scopeId.");
+                        },
+                        fn (Stringable $string) => $string->prepend('unscoped.')
+                    )
+                    ->prepend('_ipp_icons-')
                 ;
 
-                if ($model = $component->getScopedTo()) {
-                    $scopeId = md5("{$model->getMorphClass()}::{$model->getKey()}");
-                    $id = $id->prepend("_ipp_icons-$scopeId.");
-                }
                 $component->state($id->toString());
             })
 //            ->action($this->handleAction(...))

@@ -9,18 +9,18 @@
             <span class="text-gray-500 dark:text-gray-400 mt-auto mb-0">Searching...</span>
         </div>
     </div>
-    <template x-for="icon in resultsVisible">
+    <template x-for="icon in resultsVisible" :key="icon.id">
         <div role="button"
              class="bg-gray-50 text-gray-600 p-2 rounded-lg ring-1 ring-gray-950/10 dark:bg-white/5  dark:text-gray-400 dark:ring-white/20"
              x-show="! isLoading"
-                             x-on:click.prevent="updateState(icon)"
-                             secondary
-                             x-bind:class="{
-                                                'bg-primary-500! text-white!': state == icon.id
-                                            }"
+             x-on:click.prevent="updateState(icon)"
+             secondary
+             x-bind:class="{
+                'bg-primary-500! text-white!': state == icon.id
+            }"
         >
             <div class="flex flex-row gap-2 items-center text-center">
-                <div x-html="icon.html"></div>
+                <div x-intersect="setElementIcon($el, icon.id)">{{generate_loading_indicator_html()}}</div>
                 <span class="text-gray-500 dark:text-gray-400 mt-auto mb-0"
                       x-bind:class="{
                         'text-white!': state == icon.id

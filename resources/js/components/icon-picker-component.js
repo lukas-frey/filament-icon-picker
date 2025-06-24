@@ -2,21 +2,25 @@ import Fuse from 'fuse.js';
 
 export default function iconPickerComponent({
                                                 state,
-                                                selectedIcon,
+                                                // selectedIcon,
+    displayName,
                                                 isDropdown,
                                                 shouldCloseOnSelect,
                                                 getSetUsing,
                                                 getIconsUsing,
+                                                getIconSvgUsing,
                                             }) {
     return {
         state,
+        displayName,
         isDropdown,
         shouldCloseOnSelect,
+        getIconSvgUsing,
         dropdownOpen: false,
         set: null,
         icons: [],
         search: '',
-        selectedIcon,
+        // selectedIcon,
 
         fuse: null,
         results: [],
@@ -28,10 +32,10 @@ export default function iconPickerComponent({
         isLoading: false,
 
         async init() {
-            this.updateSelectedIcon();
+            // this.updateSelectedIcon();
             await this.loadIcons()
 
-            this.$watch('state', () => this.updateSelectedIcon())
+            // this.$watch('state', () => this.updateSelectedIcon())
         },
 
         deferLoadingState() {
@@ -62,7 +66,7 @@ export default function iconPickerComponent({
         },
 
         afterStateUpdated() {
-            this.updateSelectedIcon()
+            // this.updateSelectedIcon()
         },
 
         afterSetUpdated() {
@@ -72,12 +76,18 @@ export default function iconPickerComponent({
         async updateSelectedIcon(reloadIfNotFound = true) {
             const found = this.icons.find(icon => icon.id === this.state);
             if (found) {
-                this.selectedIcon = found.html;
+                // this.selectedIcon = found.html;
             } else if (reloadIfNotFound) {
                 await this.loadSet()
                 await this.loadIcons()
                 await this.updateSelectedIcon(false)
             }
+        },
+
+        setElementIcon(element, id, after = null) {
+            this.getIconSvgUsing(id)
+                .then((svg) => element.innerHTML = svg)
+                .finally(after)
         },
 
         createFuseObject() {
@@ -152,13 +162,14 @@ export default function iconPickerComponent({
         updateState(icon) {
             if (icon) {
                 this.state = icon.id;
-                this.selectedIcon = icon.html;
+                this.displayName = icon.label;
+                // this.selectedIcon = icon.html;
                 if (this.shouldCloseOnSelect) {
                     this.$nextTick(() => this.dropdownOpen = false);
                 }
             } else {
                 this.state = null;
-                this.selectedIcon = null;
+                // this.selectedIcon = null;
             }
         }
     }

@@ -22,10 +22,13 @@ class VerifyIconScope implements ValidationRule
             return;
         }
 
+        // Custom icon without scope - should not be possible
         if (! empty($scope)) {
-            if ($this->getScopeId($this->scopedTo) !== $scope) {
-                $fail('Unauthorized icon scope.');
-            }
+            $fail('Scope missing for custom icon.');
+        }
+
+        if ($this->getScopeId($this->scopedTo) !== $scope) {
+            $fail('Unauthorized icon scope.');
         }
     }
 

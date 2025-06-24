@@ -14,15 +14,16 @@
 @endphp
 
 <x-dynamic-component
-        :component="$getFieldWrapperView()"
-        :field="$field"
+    :component="$getFieldWrapperView()"
+    :field="$field"
 >
     <div
-            x-load
-            x-load-src="{{ FilamentAsset::getAlpineComponentSrc('icon-picker-component', 'guava/filament-icon-picker-pro') }}"
-            x-data="iconPickerComponent({
+        x-load
+        x-load-src="{{ FilamentAsset::getAlpineComponentSrc('icon-picker-component', 'guava/filament-icon-picker-pro') }}"
+        x-data="iconPickerComponent({
                 state: $wire.{{ $applyStateBindingModifiers("\$entangle('{$statePath}')") }},
-                selectedIcon: @js(generate_icon_html($state)?->toHtml()),
+                displayName: @js($getDisplayName()),
+{{--                selectedIcon: @js(generate_icon_html($state)?->toHtml()),--}}
                 isDropdown: @js($isDropdown),
                 shouldCloseOnSelect: @js($shouldCloseOnSelect),
                 getSetUsing: async(state) => {
@@ -31,43 +32,59 @@
                 getIconsUsing: async (set) => {
                     return await $wire.callSchemaComponentMethod(@js($key), 'getIconsJs', { set })
                 },
+                getIconSvgUsing: async(id) => {
+                    return await $wire.callSchemaComponentMethod(@js($key), 'getIconSvgJs', { id })
+                }
             })"
-            {{ $getExtraAttributeBag()
-                ->class([
-                    'flex flex-col gap-4'
-                ])
-            }}
+        {{ $getExtraAttributeBag()
+            ->class([
+                'flex flex-col gap-4'
+            ])
+        }}
     >
         <x-filament::input.wrapper
-                x-bind="dropdownTrigger"
-                class="w-full relative"
-                :disabled="$isDisabled"
-                :inline-suffix="true"
-                x-bind:class="{
+            x-bind="dropdownTrigger"
+            class="w-full relative"
+            :disabled="$isDisabled"
+            :inline-suffix="true"
+            x-bind:class="{
                     '[&_.fi-input-wrp-prefix]:hidden': ! state && ! isLoading,
                     '[&_.fi-input-wrp-suffix]:hidden': ! state,
                 }"
+            :valid="! $errors->has($statePath)"
         >
             <x-slot:prefix>
-                <div x-show="isLoading && !selectedIcon">{{generate_loading_indicator_html()}}</div>
-                <div x-html="selectedIcon"></div>
+                <div x-data="{loading: false}">
+                    <span x-show="loading">{{generate_loading_indicator_html()}}</span>
+                    <span x-show="! loading"
+                          x-init="$watch('state', (newValue) => {
+                                loading = true
+                                setElementIcon($el, newValue, () => loading = false)
+                             })"
+                    >
+                            @if($state)
+                            {{generate_icon_html($state)}}
+                        @endif
+                        </span>
+                </div>
             </x-slot:prefix>
 
-            <x-filament::input readonly x-model="state"/>
+            <x-filament::input type="hidden" x-model="state"/>
+            <x-filament::input readonly x-model="displayName" />
 
             @if(!$isDisabled)
                 <x-slot:suffix>
-                        {{
-                            generate_icon_html(
-                                'heroicon-s-x-mark',
-                                attributes: (new ComponentAttributeBag())
-                                    ->merge([
-                                        'x-on:click.prevent.stop' => 'updateState(null)'
-                                    ])
-                                    ->class([
-                                        'opacity-50 text-black dark:text-white m-auto hover:cursor-pointer'
-                                    ])
-                        )}}
+                    {{
+                        generate_icon_html(
+                            'heroicon-s-x-mark',
+                            attributes: (new ComponentAttributeBag())
+                                ->merge([
+                                    'x-on:click.prevent.stop' => 'updateState(null)'
+                                ])
+                                ->class([
+                                    'opacity-50 text-black dark:text-white m-auto hover:cursor-pointer'
+                                ])
+                    )}}
                 </x-slot:suffix>
             @endif
 
