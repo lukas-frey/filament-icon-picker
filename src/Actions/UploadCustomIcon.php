@@ -2,11 +2,14 @@
 
 namespace Guava\IconPickerPro\Actions;
 
+use Closure;
 use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Utilities\Get;
 use Guava\IconPickerPro\Forms\Components\IconPicker;
+use Guava\IconPickerPro\Icons\Facades\IconManager;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Stringable;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
@@ -54,32 +57,41 @@ class UploadCustomIcon extends Action
                     ->extraAlpineAttributes([
                         'x-on:input' => '$event.target.value = $event.target.value.replace(/[^a-zA-Z0-9\s]/g, \'\')',
                     ])
-                    ->lazy()
-                    ->helperText(fn (?string $state) => 'ID: ' . str($state)->lower()->kebab())
+                    ->rules([
+                        fn (): Closure => function (string $attribute, $value, Closure $fail) use ($component) {
+                            $id = $this->getBladeIconId($value, $component->getScopedTo());
+                            if (IconManager::getIcon($id)) {
+                                $fail(__('filament-icon-picker-pro::validation.icon-already-exists'));
+                            }
+                        },
+                    ])
                     ->required(),
             ])
             ->after(function (array $data, IconPicker $component): void {
-                $id = str(data_get($data, 'label'))
-                    ->lower()
-                    ->kebab()
-                    ->when(
-                        $scope = $component->getScopedTo(),
-                        function (Stringable $string) use ($scope) {
-                            $scopeId = md5("{$scope->getMorphClass()}::{$scope->getKey()}");
-
-                            return $string->prepend("$scopeId.");
-                        },
-                        fn (Stringable $string) => $string->prepend('unscoped.')
-                    )
-                    ->prepend('_ipp_icons-')
-                ;
-
-                $component->state($id->toString());
+                $component->state($this->getBladeIconId(
+                    data_get($data, 'label'),
+                    $component->getScopedTo()
+                ));
                 $component->callAfterCustomIconUploaded();
             })
-//            ->action($this->handleAction(...))
         ;
     }
 
-    //    protected function handleAction() {}
+    protected function getBladeIconId(string $label, ?Model $scope): string
+    {
+        return str($label)
+            ->lower()
+            ->kebab()
+            ->when(
+                $scope,
+                function (Stringable $string) use ($scope) {
+                    $scopeId = md5("{$scope->getMorphClass()}::{$scope->getKey()}");
+
+                    return $string->prepend("$scopeId.");
+                },
+                fn (Stringable $string) => $string->prepend('unscoped.')
+            )
+            ->prepend('_ipp_icons-')
+        ;
+    }
 }

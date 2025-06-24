@@ -15,8 +15,6 @@ use Guava\IconPickerPro\Forms\Components\Concerns\CanUploadCustomIcons;
 use Guava\IconPickerPro\Forms\Components\Concerns\CanUseDropdown;
 use Guava\IconPickerPro\Forms\Components\Concerns\HasSearchResultsView;
 use Guava\IconPickerPro\Icons\Facades\IconManager;
-use Guava\IconPickerPro\Icons\Icon;
-use Guava\IconPickerPro\Icons\IconSet;
 use Guava\IconPickerPro\Validation\VerifyIcon;
 use Guava\IconPickerPro\Validation\VerifyIconScope;
 use Illuminate\Support\Collection;
@@ -91,7 +89,7 @@ class IconPicker extends Field
     public function getDisplayName(): ?string
     {
         if ($state = $this->getState()) {
-            if ($icon = $this->getIconsJs()->first(fn (Icon $icon) => $icon->id === $state)) {
+            if ($icon = IconManager::getIcon($state)) {
                 return $icon->label;
             }
         }
@@ -114,14 +112,7 @@ class IconPicker extends Field
     #[Renderless]
     public function getIconsJs(?string $set = null): Collection
     {
-        return IconManager::getSets()
-            ->when(
-                $set,
-                fn (Collection $sets) => $sets->filter(fn (IconSet $iconSet) => $iconSet->getId() === $set)
-            )
-            ->map(fn (IconSet $is) => $is->getIcons($this->getScopedTo()))
-            ->collapse()
-        ;
+        return IconManager::getIcons($set, $this->getScopedTo());
     }
 
     #[ExposedLivewireMethod]
