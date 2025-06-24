@@ -7,6 +7,7 @@ use BladeUI\Icons\Factory as IconFactory;
 use Filament\Forms\Components\Concerns\CanBeSearchable;
 use Filament\Forms\Components\Field;
 use Filament\Support\Components\Attributes\ExposedLivewireMethod;
+use Filament\Support\Concerns\HasPlaceholder;
 use Guava\IconPickerPro\Actions\UploadCustomIcon;
 use Guava\IconPickerPro\Forms\Components\Concerns\CanBeScopedToModel;
 use Guava\IconPickerPro\Forms\Components\Concerns\CanCloseOnSelect;
@@ -30,22 +31,26 @@ class IconPicker extends Field
     use CanCloseOnSelect;
     use CanUploadCustomIcons;
     use CanUseDropdown;
+    use HasPlaceholder;
     use HasSearchResultsView;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->rules(
-            fn (IconPicker $component) => collect([
-                new VerifyIcon($component),
-            ])
-                ->when(
-                    $scopedTo = $component->getScopedTo(),
-                    fn (Collection $rules) => $rules->push(new VerifyIconScope($scopedTo)),
-                )
-                ->all()
-        );
+        $this
+            ->placeholder(__('filament-icon-picker-pro::icon-picker.placeholder'))
+            ->rules(
+                fn (IconPicker $component) => collect([
+                    new VerifyIcon($component),
+                ])
+                    ->when(
+                        $scopedTo = $component->getScopedTo(),
+                        fn (Collection $rules) => $rules->push(new VerifyIconScope($scopedTo)),
+                    )
+                    ->all()
+            )
+        ;
     }
 
     public function getHintActions(): array

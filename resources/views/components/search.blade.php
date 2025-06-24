@@ -20,7 +20,7 @@
     <div class="flex flex-col gap-4 @container">
         <x-filament::input.wrapper>
             <x-filament::input.select x-bind="setSelect" x-model="set">
-                <option value="">All</option>
+                <option value="">@lang('filament-icon-picker-pro::icon-picker.all-icons')</option>
                 @foreach($sets as $set)
                     <option value="{{$set->getId()}}">{{$set->label}}</option>
                 @endforeach

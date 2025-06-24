@@ -12,6 +12,7 @@
 	$isDisabled = $isDisabled();
 	$shouldCloseOnSelect = $shouldCloseOnSelect();
     $displayName = $getDisplayName();
+    $placeholder = $getPlaceholder();
 @endphp
 
 <x-dynamic-component
@@ -49,7 +50,7 @@
             :disabled="$isDisabled"
             :inline-suffix="true"
             x-bind:class="{
-                    '[&_.fi-input-wrp-prefix]:hidden': ! state && ! isLoading,
+                    '[&_.fi-input-wrp-prefix]:hidden': ! state,
                     '[&_.fi-input-wrp-suffix]:hidden': ! state,
                 }"
             :valid="! $errors->has($statePath)"
@@ -71,7 +72,7 @@
             </x-slot:prefix>
 
             <x-filament::input type="hidden" x-model="state"/>
-            <x-filament::input readonly x-model="displayName" value="{{$displayName}}"/>
+            <x-filament::input readonly x-model="displayName" value="{{$displayName}}" placeholder="{{$placeholder}}"/>
 
             @if(!$isDisabled)
                 <x-slot:suffix>
