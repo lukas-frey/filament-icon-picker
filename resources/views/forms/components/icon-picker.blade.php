@@ -22,6 +22,7 @@
             x-load-src="{{ FilamentAsset::getAlpineComponentSrc('icon-picker-component', 'guava/filament-icon-picker-pro') }}"
             x-data="iconPickerComponent({
                 state: $wire.{{ $applyStateBindingModifiers("\$entangle('{$statePath}')") }},
+                selectedIcon: @js(generate_icon_html($state)?->toHtml()),
                 isDropdown: @js($isDropdown),
                 shouldCloseOnSelect: @js($shouldCloseOnSelect),
                 getSetUsing: async(state) => {

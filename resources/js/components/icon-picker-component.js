@@ -2,6 +2,7 @@ import Fuse from 'fuse.js';
 
 export default function iconPickerComponent({
                                                 state,
+                                                selectedIcon,
                                                 isDropdown,
                                                 shouldCloseOnSelect,
                                                 getSetUsing,
@@ -15,11 +16,12 @@ export default function iconPickerComponent({
         set: null,
         icons: [],
         search: '',
-        selectedIcon: null,
+        selectedIcon,
 
         fuse: null,
         results: [],
         resultsVisible: [],
+        minimumItems: 300,
         resultsPerPage: 50,
         resultsIndex: 0,
 
@@ -70,12 +72,9 @@ export default function iconPickerComponent({
         async updateSelectedIcon(reloadIfNotFound = true) {
             const found = this.icons.find(icon => icon.id === this.state);
             if (found) {
-                console.log('Found')
                 this.selectedIcon = found.html;
             } else if (reloadIfNotFound) {
-                console.log(`Icon [${this.state}] not found`)
                 await this.loadSet()
-                console.log(`Reloaded set: ${this.set}`)
                 await this.loadIcons()
                 await this.updateSelectedIcon(false)
             }
@@ -91,7 +90,7 @@ export default function iconPickerComponent({
         },
 
         resetSearchResults() {
-            this.resultsPerPage = 50;
+            this.resultsPerPage = 20;
             this.resultsIndex = 0;
             this.results = this.icons;
             this.resultsVisible = [];
@@ -112,8 +111,7 @@ export default function iconPickerComponent({
             ['x-on:input.debounce'](event) {
                 const value = event.target.value
                 const isLoadingDeferId = this.deferLoadingState()
-
-                if (value) {
+                if (value.length) {
                     this.resultsVisible = [];
                     this.resultsIndex = 0;
                     this.results = this.fuse.search(value).map(result => result.item);
@@ -143,7 +141,10 @@ export default function iconPickerComponent({
         },
 
         addSearchResultsChunk() {
-            const endIndex = this.resultsIndex + this.resultsPerPage;
+            let endIndex = this.resultsIndex + this.resultsPerPage;
+            if (endIndex < this.minimumItems) {
+                endIndex = this.minimumItems;
+            }
             this.resultsVisible.push(...this.results.slice(this.resultsIndex, endIndex));
             this.resultsIndex = endIndex;
         },

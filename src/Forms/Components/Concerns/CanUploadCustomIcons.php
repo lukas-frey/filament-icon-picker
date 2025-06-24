@@ -3,6 +3,7 @@
 namespace Guava\IconPickerPro\Forms\Components\Concerns;
 
 use Closure;
+use Guava\IconPickerPro\Actions\UploadCustomIcon;
 
 trait CanUploadCustomIcons
 {
@@ -18,5 +19,12 @@ trait CanUploadCustomIcons
     public function isCustomIconsUploadEnabled(): ?bool
     {
         return $this->evaluate($this->customIconsUploadEnabled);
+    }
+
+    public function getCustomIconsUploadAction(): UploadCustomIcon
+    {
+        return UploadCustomIcon::make()
+            ->disabled($this->isDisabled())
+        ;
     }
 }

@@ -17,7 +17,7 @@
     x-bind="dropdownMenu"
     x-cloak
 >
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-4 @container">
         <x-filament::input.wrapper>
             <x-filament::input.select x-bind="setSelect" x-model="set">
                 <option value="">All</option>
