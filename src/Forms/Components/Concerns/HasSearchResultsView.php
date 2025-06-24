@@ -72,7 +72,6 @@ trait HasSearchResultsView
     protected function getDefaultSearchResultsViewData(): array
     {
         return [
-            'searchingMessage' => $this->getSearchingMessage(),
             'field' => $this,
         ];
     }

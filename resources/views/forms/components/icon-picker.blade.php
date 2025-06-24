@@ -11,6 +11,7 @@
 	$isDropdown = $isDropdown();
 	$isDisabled = $isDisabled();
 	$shouldCloseOnSelect = $shouldCloseOnSelect();
+    $displayName = $getDisplayName();
 @endphp
 
 <x-dynamic-component
@@ -23,8 +24,7 @@
         x-data="iconPickerComponent({
                 key: @js($key),
                 state: $wire.{{ $applyStateBindingModifiers("\$entangle('{$statePath}')") }},
-                displayName: @js($getDisplayName()),
-{{--                selectedIcon: @js(generate_icon_html($state)?->toHtml()),--}}
+                displayName: @js($displayName),
                 isDropdown: @js($isDropdown),
                 shouldCloseOnSelect: @js($shouldCloseOnSelect),
                 getSetUsing: async(state) => {
@@ -56,7 +56,7 @@
         >
             <x-slot:prefix>
                 <div x-data="{loading: false}">
-                    <span x-show="loading">{{generate_loading_indicator_html()}}</span>
+                    <span x-cloak x-show="loading">{{generate_loading_indicator_html()}}</span>
                     <span x-show="! loading"
                           x-init="$watch('state', (newValue) => {
                                 loading = true
@@ -64,14 +64,14 @@
                              })"
                     >
                             @if($state)
-                            {{generate_icon_html($state)}}
-                        @endif
+                                {{generate_icon_html($state)}}
+                            @endif
                         </span>
                 </div>
             </x-slot:prefix>
 
             <x-filament::input type="hidden" x-model="state"/>
-            <x-filament::input readonly x-model="displayName"/>
+            <x-filament::input readonly x-model="displayName" value="{{$displayName}}"/>
 
             @if(!$isDisabled)
                 <x-slot:suffix>

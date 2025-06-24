@@ -13,7 +13,7 @@
              class="flex items-center justify-center bg-gray-50 text-gray-600  p-2 rounded-lg ring-1 ring-gray-950/10 dark:bg-white/5  dark:text-gray-400 dark:ring-white/20"
              x-on:click.prevent="updateState(icon)"
              x-bind:class="{
-                'bg-primary-500! text-white!': state == icon.id
+                'bg-primary-500! dark:bg-primary-600! text-white!': state == icon.id
             }"
              x-show="! isLoading"
              @if($withTooltips)
