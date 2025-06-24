@@ -1,9 +1,10 @@
 import Fuse from 'fuse.js';
 
 export default function iconPickerComponent({
+                                                key,
                                                 state,
                                                 // selectedIcon,
-    displayName,
+                                                displayName,
                                                 isDropdown,
                                                 shouldCloseOnSelect,
                                                 getSetUsing,
@@ -36,6 +37,11 @@ export default function iconPickerComponent({
             await this.loadIcons()
 
             // this.$watch('state', () => this.updateSelectedIcon())
+            this.$wire.on(`custom-icon-uploaded::${key}`, (icon) => {
+                this.displayName = icon.label
+                this.set = icon.set
+                this.afterSetUpdated()
+            })
         },
 
         deferLoadingState() {

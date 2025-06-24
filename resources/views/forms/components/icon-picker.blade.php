@@ -21,6 +21,7 @@
         x-load
         x-load-src="{{ FilamentAsset::getAlpineComponentSrc('icon-picker-component', 'guava/filament-icon-picker-pro') }}"
         x-data="iconPickerComponent({
+                key: @js($key),
                 state: $wire.{{ $applyStateBindingModifiers("\$entangle('{$statePath}')") }},
                 displayName: @js($getDisplayName()),
 {{--                selectedIcon: @js(generate_icon_html($state)?->toHtml()),--}}
@@ -70,7 +71,7 @@
             </x-slot:prefix>
 
             <x-filament::input type="hidden" x-model="state"/>
-            <x-filament::input readonly x-model="displayName" />
+            <x-filament::input readonly x-model="displayName"/>
 
             @if(!$isDisabled)
                 <x-slot:suffix>

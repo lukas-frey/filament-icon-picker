@@ -75,6 +75,7 @@ class UploadCustomIcon extends Action
                 ;
 
                 $component->state($id->toString());
+                $component->callAfterCustomIconUploaded();
             })
 //            ->action($this->handleAction(...))
         ;

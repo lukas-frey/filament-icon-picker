@@ -20,4 +20,8 @@ class Icon
         $this->label = str($this->name)->headline()->lower()->ucfirst();
     }
 
+    public function getSet() {
+        return $this->set;
+    }
+
 }

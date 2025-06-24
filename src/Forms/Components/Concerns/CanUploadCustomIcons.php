@@ -4,6 +4,7 @@ namespace Guava\IconPickerPro\Forms\Components\Concerns;
 
 use Closure;
 use Guava\IconPickerPro\Actions\UploadCustomIcon;
+use Guava\IconPickerPro\Icons\Icon;
 
 trait CanUploadCustomIcons
 {
@@ -26,5 +27,19 @@ trait CanUploadCustomIcons
         return UploadCustomIcon::make()
             ->disabled($this->isDisabled())
         ;
+    }
+
+    public function callAfterCustomIconUploaded(): void
+    {
+        if ($state = $this->getState()) {
+            if ($icon = $this->getIconsJs()->first(fn (Icon $icon) => $icon->id === $state)) {
+                $this->getLivewire()->dispatch(
+                    "custom-icon-uploaded::{$this->getKey()}",
+                    id: $icon->id,
+                    label: $icon->label,
+                    set: $icon->getSet()->getId()
+                );
+            }
+        }
     }
 }
