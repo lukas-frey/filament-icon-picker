@@ -3,6 +3,7 @@
 namespace Guava\IconPickerPro\Forms\Components;
 
 use BladeUI\Icons\Exceptions\SvgNotFound;
+use BladeUI\Icons\Factory as IconFactory;
 use Filament\Forms\Components\Concerns\CanBeSearchable;
 use Filament\Forms\Components\Field;
 use Filament\Support\Components\Attributes\ExposedLivewireMethod;
@@ -19,7 +20,6 @@ use Guava\IconPickerPro\Validation\VerifyIcon;
 use Guava\IconPickerPro\Validation\VerifyIconScope;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Renderless;
-use BladeUI\Icons\Factory as IconFactory;
 
 use function Filament\Support\generate_icon_html;
 
@@ -72,7 +72,10 @@ class IconPicker extends Field
         try {
             $factory = app(IconFactory::class);
             $state = parent::getState();
-            $factory->svg($state);
+
+            if ($state) {
+                $factory->svg($state);
+            }
 
             return $state;
         } catch (SvgNotFound $e) {
@@ -80,12 +83,14 @@ class IconPicker extends Field
         }
     }
 
-    public function getDisplayName() {
+    public function getDisplayName(): ?string
+    {
         if ($state = $this->getState()) {
-            if ($icon = $this->getIconsJs()->first(fn(Icon $icon) => $icon->id === $state)) {
+            if ($icon = $this->getIconsJs()->first(fn (Icon $icon) => $icon->id === $state)) {
                 return $icon->label;
             }
         }
+
         return null;
     }
 

@@ -175,6 +175,7 @@ export default function iconPickerComponent({
                 }
             } else {
                 this.state = null;
+                this.displayName = null;
                 // this.selectedIcon = null;
             }
         }
