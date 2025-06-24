@@ -10,13 +10,13 @@ export default function iconPickerComponent({
                                                 getSetUsing,
                                                 getIconsUsing,
                                                 getIconSvgUsing,
+                                                verifyStateUsing,
                                             }) {
     return {
         state,
         displayName,
         isDropdown,
         shouldCloseOnSelect,
-        getIconSvgUsing,
         dropdownOpen: false,
         set: null,
         icons: [],
@@ -33,6 +33,9 @@ export default function iconPickerComponent({
         isLoading: false,
 
         async init() {
+            await verifyStateUsing(this.state)
+                .then(result => this.state = result)
+
             // this.updateSelectedIcon();
             await this.loadIcons()
 
@@ -91,7 +94,7 @@ export default function iconPickerComponent({
         },
 
         setElementIcon(element, id, after = null) {
-            this.getIconSvgUsing(id)
+            getIconSvgUsing(id)
                 .then((svg) => element.innerHTML = svg)
                 .finally(after)
         },

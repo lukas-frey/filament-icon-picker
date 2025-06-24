@@ -36,6 +36,9 @@
                 },
                 getIconSvgUsing: async(id) => {
                     return await $wire.callSchemaComponentMethod(@js($key), 'getIconSvgJs', { id })
+                },
+                verifyStateUsing: async(state) => {
+                    return await $wire.callSchemaComponentMethod(@js($key), 'verifyState', { state })
                 }
             })"
         {{ $getExtraAttributeBag()

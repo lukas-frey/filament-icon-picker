@@ -47,7 +47,7 @@ class IconManager
         return $this->getSetByPrefix($prefix);
     }
 
-    public function getIcon(string $id): ?Icon
+    public function getIcon(?string $id): ?Icon
     {
         return $this->getIcons()->first(fn (Icon $icon) => $icon->id === $id);
     }
