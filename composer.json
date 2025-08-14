@@ -19,7 +19,7 @@
   },
   "require": {
     "php": "^8.0",
-    "filament/filament": "^3.0@stable"
+    "filament/filament": "^4.0"
   },
   "extra": {
     "laravel": {
@@ -28,6 +28,5 @@
       ]
     }
   },
-  "minimum-stability": "dev",
   "prefer-stable": true
 }

@@ -1,5 +1,5 @@
 <div {{ $attributes->merge([
     'class' => "filament-icon-picker filament-icon-picker-{$getLayout()}",
-])->merge($getColumnsConfig()) }}>
+])->merge($getColumns()) }}>
 	@include('filament-forms::components.select')
 </div>
