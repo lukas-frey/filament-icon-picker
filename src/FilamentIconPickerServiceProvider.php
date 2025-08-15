@@ -23,7 +23,7 @@ class FilamentIconPickerServiceProvider extends PackageServiceProvider
         parent::bootingPackage();
 
         FilamentAsset::register([
-            Css::make('filament-icon-picker-stylesheet', __DIR__ . '/../dist/plugin.css'),
+            Css::make('filament-icon-picker-stylesheet', __DIR__ . '/../dist/plugin.css')->loadedOnRequest(),
         ], package: 'guava/filament-icon-picker');
     }
 

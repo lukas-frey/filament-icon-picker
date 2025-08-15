@@ -27,7 +27,7 @@ class IconPicker extends Select
     protected array|Closure|null $disallowedIcons = null;
 
     protected bool|Closure $isHtmlAllowed = true;
-    protected bool|Closure $isSearchable = true;
+    protected Closure|bool|null $isSearchable = true;
 
     protected Closure|string|Htmlable|null $itemTemplate = null;
 
@@ -70,9 +70,7 @@ class IconPicker extends Select
                     'icon' => $icon,
                 ])->render();
             })
-            ->placeholder(function () {
-                return $this->view('filament-icon-picker::placeholder')->render();
-            });
+            ->placeholder(fn () => __('No icon selected'));
     }
 
     /**
