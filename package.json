@@ -1,23 +1,21 @@
 {
   "name": "@guava/filament-icon-picker",
   "scripts": {
-    "dev": "npx tailwindcss -i resources/css/plugin.css -o dist/plugin.css --postcss --watch",
-    "build": "npx tailwindcss -i resources/css/plugin.css -o dist/plugin.css --postcss --minify && npm run purge",
-    "purge": "filament-purge -i dist/plugin.css -o dist/plugin.css -v 3.x"
+    "dev": "vite",
+    "build": "vite build && tailwindcss -i resources/css/plugin.css -o dist/plugin.css --minify"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/commit-analyzer": "^9.0.2",
     "@semantic-release/github": "^8.0.6",
     "@semantic-release/release-notes-generator": "^10.0.3",
-    "autoprefixer": "^10.4.12",
-    "postcss": "^8.4.17",
+    "@tailwindcss/cli": "^4.1.12",
+    "laravel-vite-plugin": "^2.0.0",
     "semantic-release": "^19.0.5",
-    "tailwindcss": "^3.1.8"
+    "tailwindcss": "^4.1.12"
   },
   "dependencies": {
-    "@awcodes/filament-plugin-purge": "^1.0.2",
-    "conventional-changelog-conventionalcommits": "^5.0.0",
-    "postcss-for": "^2.1.1"
+    "@tailwindcss/vite": "^4.1.12",
+    "conventional-changelog-conventionalcommits": "^5.0.0"
   }
 }

@@ -1,0 +1,10 @@
+{
+  "resources/css/plugin.css": {
+    "file": "assets/plugin-DD1pga-u.css",
+    "src": "resources/css/plugin.css",
+    "isEntry": true,
+    "names": [
+      "plugin.css"
+    ]
+  }
+}

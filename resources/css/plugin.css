@@ -1,49 +1,380 @@
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss' layer(utilities);
 
-@layer components {
-    .filament-icon-picker .choices > .choices__list {
-        @apply px-2;
-    }
+@custom-variant dark (&:is(.dark *));
 
-    .filament-icon-picker .choices > .choices__inner > .choices__list.choices__list--single {
-        @apply w-full;
-    }
+@theme {
+  --color-danger-50: #fff1f2;
+  --color-danger-100: #ffe4e6;
+  --color-danger-200: #fecdd3;
+  --color-danger-300: #fda4af;
+  --color-danger-400: #fb7185;
+  --color-danger-500: #f43f5e;
+  --color-danger-600: #e11d48;
+  --color-danger-700: #be123c;
+  --color-danger-800: #9f1239;
+  --color-danger-900: #881337;
 
-    .filament-icon-picker.filament-icon-picker-on_top .choices > .choices__list {
-        @apply visible relative px-2;
-    }
+  --color-primary-50: #fffbeb;
+  --color-primary-100: #fef3c7;
+  --color-primary-200: #fde68a;
+  --color-primary-300: #fcd34d;
+  --color-primary-400: #fbbf24;
+  --color-primary-500: #f59e0b;
+  --color-primary-600: #d97706;
+  --color-primary-700: #b45309;
+  --color-primary-800: #92400e;
+  --color-primary-900: #78350f;
 
-    .filament-icon-picker.filament-icon-picker-on_top .choices > .choices__inner {
-        @apply bg-none px-3;
-    }
+  --color-success-50: #f0fdf4;
+  --color-success-100: #dcfce7;
+  --color-success-200: #bbf7d0;
+  --color-success-300: #86efac;
+  --color-success-400: #4ade80;
+  --color-success-500: #22c55e;
+  --color-success-600: #16a34a;
+  --color-success-700: #15803d;
+  --color-success-800: #166534;
+  --color-success-900: #14532d;
 
-    .filament-icon-picker.filament-icon-picker-on_top .choices > .choices__inner > .choices__list.choices__list--single {
-        @apply relative px-0;
-    }
-
-    .filament-icon-picker.filament-icon-picker-on_top .choices > .choices__inner > .choices__list.choices__list--single .choices__button {
-        @apply absolute mr-2;
-    }
-
-    .filament-icon-picker .choices > .choices__list .choices__list {
-        @apply pb-2 gap-2;
-    }
-
-    .filament-icon-picker .choices > .choices__list .choices__list .choices__item {
-        @apply hover:cursor-pointer border-[1px] rounded-lg shadow-sm;
-    }
-
-    .filament-icon-picker .choices > .choices__list .choices__list .choices__item.has-no-choices,
-    .filament-icon-picker .choices > .choices__list .choices__list .choices__item.has-no-results,
-    .filament-icon-picker .choices > .choices__list .choices__list .choices__item.choices__item--disabled {
-        @apply border-none shadow-none;
-    }
-
-    .filament-icon-picker .choices > .choices__list .choices__list {
-        @apply grid;
-    }
+  --color-warning-50: #fffbeb;
+  --color-warning-100: #fef3c7;
+  --color-warning-200: #fde68a;
+  --color-warning-300: #fcd34d;
+  --color-warning-400: #fbbf24;
+  --color-warning-500: #f59e0b;
+  --color-warning-600: #d97706;
+  --color-warning-700: #b45309;
+  --color-warning-800: #92400e;
+  --color-warning-900: #78350f;
 }
+
+@utility filament-icon-picker {
+  & .choices > .choices__list {
+    @apply px-2;
+  }
+
+  & .choices > .choices__inner > .choices__list.choices__list--single {
+    @apply w-full;
+  }
+
+  &.filament-icon-picker-on_top .choices > .choices__list {
+    @apply visible relative px-2;
+  }
+
+  &.filament-icon-picker-on_top .choices > .choices__inner {
+    @apply bg-none px-3;
+  }
+
+  &.filament-icon-picker-on_top
+    .choices
+    > .choices__inner
+    > .choices__list.choices__list--single {
+    @apply relative px-0;
+  }
+
+  &.filament-icon-picker-on_top
+    .choices
+    > .choices__inner
+    > .choices__list.choices__list--single
+    .choices__button {
+    @apply absolute mr-2;
+  }
+
+  & .choices > .choices__list .choices__list {
+    @apply pb-2 gap-2;
+  }
+
+  & .choices > .choices__list .choices__list .choices__item {
+    @apply hover:cursor-pointer border rounded-lg shadow-xs;
+  }
+
+  & .choices > .choices__list .choices__list .choices__item.has-no-choices {
+    @apply border-none shadow-none;
+  }
+
+  & .choices > .choices__list .choices__list .choices__item.has-no-results {
+    @apply border-none shadow-none;
+  }
+
+  &
+    .choices
+    > .choices__list
+    .choices__list
+    .choices__item.choices__item--disabled {
+    @apply border-none shadow-none;
+  }
+
+  & .choices > .choices__list .choices__list {
+    @apply grid;
+  }
+}
+
+@utility choices {
+  .filament-icon-picker & > .choices__list {
+    @apply px-2;
+  }
+
+  .filament-icon-picker
+    &
+    > .choices__inner
+    > .choices__list.choices__list--single {
+    @apply w-full;
+  }
+
+  .filament-icon-picker.filament-icon-picker-on_top & > .choices__list {
+    @apply visible relative px-2;
+  }
+
+  .filament-icon-picker.filament-icon-picker-on_top & > .choices__inner {
+    @apply bg-none px-3;
+  }
+
+  .filament-icon-picker.filament-icon-picker-on_top
+    &
+    > .choices__inner
+    > .choices__list.choices__list--single {
+    @apply relative px-0;
+  }
+
+  .filament-icon-picker.filament-icon-picker-on_top
+    &
+    > .choices__inner
+    > .choices__list.choices__list--single
+    .choices__button {
+    @apply absolute mr-2;
+  }
+
+  .filament-icon-picker & > .choices__list .choices__list {
+    @apply pb-2 gap-2;
+  }
+
+  .filament-icon-picker & > .choices__list .choices__list .choices__item {
+    @apply hover:cursor-pointer border rounded-lg shadow-xs;
+  }
+
+  .filament-icon-picker
+    &
+    > .choices__list
+    .choices__list
+    .choices__item.has-no-choices {
+    @apply border-none shadow-none;
+  }
+
+  .filament-icon-picker
+    &
+    > .choices__list
+    .choices__list
+    .choices__item.has-no-results {
+    @apply border-none shadow-none;
+  }
+
+  .filament-icon-picker
+    &
+    > .choices__list
+    .choices__list
+    .choices__item.choices__item--disabled {
+    @apply border-none shadow-none;
+  }
+
+  .filament-icon-picker & > .choices__list .choices__list {
+    @apply grid;
+  }
+}
+
+@utility choices__list {
+  .filament-icon-picker .choices > & {
+    @apply px-2;
+  }
+
+  .filament-icon-picker .choices > .choices__inner > &.choices__list--single {
+    @apply w-full;
+  }
+
+  .filament-icon-picker.filament-icon-picker-on_top .choices > & {
+    @apply visible relative px-2;
+  }
+
+  .filament-icon-picker.filament-icon-picker-on_top
+    .choices
+    > .choices__inner
+    > &.choices__list--single {
+    @apply relative px-0;
+  }
+
+  .filament-icon-picker.filament-icon-picker-on_top
+    .choices
+    > .choices__inner
+    > &.choices__list--single
+    .choices__button {
+    @apply absolute mr-2;
+  }
+
+  .filament-icon-picker .choices > & & {
+    @apply pb-2 gap-2;
+  }
+
+  .filament-icon-picker .choices > & & .choices__item {
+    @apply hover:cursor-pointer border rounded-lg shadow-xs;
+  }
+
+  .filament-icon-picker .choices > & & .choices__item.has-no-choices {
+    @apply border-none shadow-none;
+  }
+
+  .filament-icon-picker .choices > & & .choices__item.has-no-results {
+    @apply border-none shadow-none;
+  }
+
+  .filament-icon-picker .choices > & & .choices__item.choices__item--disabled {
+    @apply border-none shadow-none;
+  }
+
+  .filament-icon-picker .choices > & & {
+    @apply grid;
+  }
+}
+
+@utility choices__inner {
+  .filament-icon-picker .choices > & > .choices__list.choices__list--single {
+    @apply w-full;
+  }
+
+  .filament-icon-picker.filament-icon-picker-on_top .choices > & {
+    @apply bg-none px-3;
+  }
+
+  .filament-icon-picker.filament-icon-picker-on_top
+    .choices
+    > &
+    > .choices__list.choices__list--single {
+    @apply relative px-0;
+  }
+
+  .filament-icon-picker.filament-icon-picker-on_top
+    .choices
+    > &
+    > .choices__list.choices__list--single
+    .choices__button {
+    @apply absolute mr-2;
+  }
+}
+
+@utility choices__list--single {
+  .filament-icon-picker .choices > .choices__inner > &.choices__list {
+    @apply w-full;
+  }
+
+  .filament-icon-picker.filament-icon-picker-on_top
+    .choices
+    > .choices__inner
+    > &.choices__list {
+    @apply relative px-0;
+  }
+
+  .filament-icon-picker.filament-icon-picker-on_top
+    .choices
+    > .choices__inner
+    > &.choices__list
+    .choices__button {
+    @apply absolute mr-2;
+  }
+}
+
+@utility filament-icon-picker-on_top {
+  &.filament-icon-picker .choices > .choices__list {
+    @apply visible relative px-2;
+  }
+
+  &.filament-icon-picker .choices > .choices__inner {
+    @apply bg-none px-3;
+  }
+
+  &.filament-icon-picker
+    .choices
+    > .choices__inner
+    > .choices__list.choices__list--single {
+    @apply relative px-0;
+  }
+
+  &.filament-icon-picker
+    .choices
+    > .choices__inner
+    > .choices__list.choices__list--single
+    .choices__button {
+    @apply absolute mr-2;
+  }
+}
+
+@utility choices__button {
+  .filament-icon-picker.filament-icon-picker-on_top
+    .choices
+    > .choices__inner
+    > .choices__list.choices__list--single
+    & {
+    @apply absolute mr-2;
+  }
+}
+
+@utility choices__item {
+  .filament-icon-picker .choices > .choices__list .choices__list & {
+    @apply hover:cursor-pointer border rounded-lg shadow-xs;
+  }
+
+  .filament-icon-picker
+    .choices
+    > .choices__list
+    .choices__list
+    &.has-no-choices {
+    @apply border-none shadow-none;
+  }
+
+  .filament-icon-picker
+    .choices
+    > .choices__list
+    .choices__list
+    &.has-no-results {
+    @apply border-none shadow-none;
+  }
+
+  .filament-icon-picker
+    .choices
+    > .choices__list
+    .choices__list
+    &.choices__item--disabled {
+    @apply border-none shadow-none;
+  }
+}
+
+@utility has-no-choices {
+  .filament-icon-picker
+    .choices
+    > .choices__list
+    .choices__list
+    &.choices__item {
+    @apply border-none shadow-none;
+  }
+}
+
+@utility has-no-results {
+  .filament-icon-picker
+    .choices
+    > .choices__list
+    .choices__list
+    &.choices__item {
+    @apply border-none shadow-none;
+  }
+}
+
+@utility choices__item--disabled {
+  .filament-icon-picker
+    .choices
+    > .choices__list
+    .choices__list
+    &.choices__item {
+    @apply border-none shadow-none;
+  }
+}
+
 .filament-icon-picker .choices > .choices__list .choices__list .choices__item.has-no-choices,
 .filament-icon-picker .choices > .choices__list .choices__list .choices__item.has-no-results,
 .filament-icon-picker .choices > .choices__list .choices__list .choices__item.choices__item--disabled {
@@ -52,32 +383,32 @@
 
 @for $i from 1 to 12 {
     .filament-icon-picker[default="$(i)"] .choices > .choices__list .choices__list {
-        @apply grid-cols-[repeat($(i),_minmax(0,_1fr))]
+        @apply grid-cols-[repeat($(i),minmax(0,1fr))]
     }
 }
 
 @for $i from 1 to 12 {
     .filament-icon-picker[sm="$(i)"] .choices > .choices__list .choices__list {
-        @apply sm:grid-cols-[repeat($(i),_minmax(0,_1fr))]
+        @apply sm:grid-cols-[repeat($(i),minmax(0,1fr))]
     }
 }
 @for $i from 1 to 12 {
     .filament-icon-picker[md="$(i)"] .choices > .choices__list .choices__list {
-        @apply md:grid-cols-[repeat($(i),_minmax(0,_1fr))]
+        @apply md:grid-cols-[repeat($(i),minmax(0,1fr))]
     }
 }
 @for $i from 1 to 12 {
     .filament-icon-picker[lg="$(i)"] .choices > .choices__list .choices__list {
-        @apply lg:grid-cols-[repeat($(i),_minmax(0,_1fr))]
+        @apply lg:grid-cols-[repeat($(i),minmax(0,1fr))]
     }
 }
 @for $i from 1 to 12 {
     .filament-icon-picker[xl="$(i)"] .choices > .choices__list .choices__list {
-        @apply xl:grid-cols-[repeat($(i),_minmax(0,_1fr))]
+        @apply xl:grid-cols-[repeat($(i),minmax(0,1fr))]
     }
 }
 @for $i from 1 to 12 {
     .filament-icon-picker[\2xl="$(i)"] .choices > .choices__list .choices__list {
-        @apply 2xl:grid-cols-[repeat($(i),_minmax(0,_1fr))]
+        @apply 2xl:grid-cols-[repeat($(i),minmax(0,1fr))]
     }
 }
