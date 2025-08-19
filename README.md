@@ -82,6 +82,10 @@ IconPicker::make('icon')
     ->gridSearchResults();
 ```
 
+<img width="410" height="598" alt="Screenshot 2025-08-19 at 14 12 10" src="https://github.com/user-attachments/assets/78965823-03b7-48b4-9347-58e1ba693530" />
+
+
+
 #### List View
 Icons will be rendered in a list together with the icon's name.
 
@@ -89,6 +93,9 @@ Icons will be rendered in a list together with the icon's name.
 IconPicker::make('icon')
     ->listSearchResults();
 ```
+
+<img width="414" height="594" alt="Screenshot 2025-08-19 at 14 12 27" src="https://github.com/user-attachments/assets/1ff12789-91fd-4587-aec5-c40bbb089a4f" />
+
 
 #### Icons View
 Icons will be rendered in a small grid with only the icons visible, optionally configurable to show a tooltip with the icon name.
@@ -98,6 +105,9 @@ IconPicker::make('icon')
     ->iconsSearchResults()       // With tooltip
     ->iconsSearchResults(false); // Without tooltip
 ```
+
+<img width="417" height="477" alt="Screenshot 2025-08-19 at 14 12 48" src="https://github.com/user-attachments/assets/42a4a50c-3495-4b7f-a9ed-94e3e8b23867" />
+
 
 ### Dropdown
 By default, the icon picker will open a dropdown, where you can search and select the icon. (Very similar to a regular `Select` field in filament).
