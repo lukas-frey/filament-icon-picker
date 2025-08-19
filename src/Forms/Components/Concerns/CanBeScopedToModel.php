@@ -3,7 +3,6 @@
 namespace Guava\IconPicker\Forms\Components\Concerns;
 
 use Closure;
-use Guava\IconPicker\Validation\VerifyIconScope;
 use Illuminate\Database\Eloquent\Model;
 
 trait CanBeScopedToModel

@@ -5,8 +5,6 @@ namespace Guava\IconPicker;
 use BladeUI\Icons\Factory as IconFactory;
 use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
-use Filament\Support\Assets\Css;
-use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Guava\IconPicker\Testing\TestsIconPicker;

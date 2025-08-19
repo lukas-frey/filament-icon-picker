@@ -2,7 +2,6 @@
 
 namespace Guava\IconPicker\Icons\Facades;
 
-use BladeUI\Icons\Factory;
 use Illuminate\Support\Facades\Facade;
 
 /**
