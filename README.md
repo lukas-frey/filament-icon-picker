@@ -20,15 +20,20 @@ You can install the package via composer:
 composer require guava/filament-icon-picker:"^3.0"
 ```
 
-**Filament v3:**
+Make sure to publish the package assets using:
+
 ```bash
-composer require guava/filament-icon-picker:"^2.0"
+php artisan filament:assets
 ```
 
-**Filament v2:**
-```bash
-composer require guava/filament-icon-picker:"^1.0"
-````
+Finally, make sure you have a **custom filament theme** (read [here](https://filamentphp.com/docs/4.x/styling/overview#creating-a-custom-theme) how to create one) and add the following to your **theme.css** file:
+
+This ensures that the CSS is properly built:
+```css
+@source '../../../../vendor/guava/filament-icon-picker/resources/**/*';
+```
+
+For older filament versions, please check the branch of the respective version.
 
 ## Usage
 
