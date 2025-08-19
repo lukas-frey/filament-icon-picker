@@ -1,14 +1,14 @@
 <?php
 
-namespace Guava\IconPickerPro\Actions;
+namespace Guava\IconPicker\Actions;
 
 use Closure;
 use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Utilities\Get;
-use Guava\IconPickerPro\Forms\Components\IconPicker;
-use Guava\IconPickerPro\Icons\Facades\IconManager;
+use Guava\IconPicker\Forms\Components\IconPicker;
+use Guava\IconPicker\Icons\Facades\IconManager;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Stringable;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
@@ -23,17 +23,17 @@ class UploadCustomIcon extends Action
     public function configure(): static
     {
         return $this
-            ->label(__('filament-icon-picker-pro::actions.upload-custom-icon.label'))
+            ->label(__('filament-icon-picker::actions.upload-custom-icon.label'))
             ->icon('heroicon-c-arrow-up-tray')
             ->modal()
             ->modalIcon(fn (UploadCustomIcon $action) => $action->getIcon())
             ->schema(fn (IconPicker $component) => [
                 FileUpload::make('file')
-                    ->label(__('filament-icon-picker-pro::actions.upload-custom-icon.schema.file.label'))
+                    ->label(__('filament-icon-picker::actions.upload-custom-icon.schema.file.label'))
                     ->acceptedFileTypes(['image/svg+xml'])
                     ->disk('public')
                     ->directory(function () use ($component): string {
-                        $directory = str('icon-picker-pro-icons');
+                        $directory = str('icon-picker-icons');
 
                         if ($model = $component->getScopedTo()) {
                             $scopeId = md5("{$model->getMorphClass()}::{$model->getKey()}");
@@ -53,7 +53,7 @@ class UploadCustomIcon extends Action
                     ->required(),
 
                 TextInput::make('label')
-                    ->label(__('filament-icon-picker-pro::actions.upload-custom-icon.schema.label.label'))
+                    ->label(__('filament-icon-picker::actions.upload-custom-icon.schema.label.label'))
                     ->extraAlpineAttributes([
                         'x-on:input' => '$event.target.value = $event.target.value.replace(/[^a-zA-Z0-9\s]/g, \'\')',
                     ])
@@ -61,7 +61,7 @@ class UploadCustomIcon extends Action
                         fn (): Closure => function (string $attribute, $value, Closure $fail) use ($component) {
                             $id = $this->getBladeIconId($value, $component->getScopedTo());
                             if (IconManager::getIcon($id)) {
-                                $fail(__('filament-icon-picker-pro::validation.icon-already-exists'));
+                                $fail(__('filament-icon-picker::validation.icon-already-exists'));
                             }
                         },
                     ])
@@ -91,7 +91,7 @@ class UploadCustomIcon extends Action
                 },
                 fn (Stringable $string) => $string->prepend('unscoped.')
             )
-            ->prepend('_ipp_icons-')
+            ->prepend('_gfic_icons-')
         ;
     }
 }

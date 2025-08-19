@@ -21,7 +21,7 @@
 >
     <div
         x-load
-        x-load-src="{{ FilamentAsset::getAlpineComponentSrc('icon-picker-component', 'guava/filament-icon-picker-pro') }}"
+        x-load-src="{{ FilamentAsset::getAlpineComponentSrc('icon-picker-component', 'guava/filament-icon-picker') }}"
         x-data="iconPickerComponent({
                 key: @js($key),
                 state: $wire.{{ $applyStateBindingModifiers("\$entangle('{$statePath}')") }},

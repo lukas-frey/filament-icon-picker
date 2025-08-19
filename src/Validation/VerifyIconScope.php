@@ -1,6 +1,6 @@
 <?php
 
-namespace Guava\IconPickerPro\Validation;
+namespace Guava\IconPicker\Validation;
 
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -18,7 +18,7 @@ class VerifyIconScope implements ValidationRule
         $scope = str($value)->after('-')->before('.')->toString();
 
         // TODO: replace magic value
-        if ($prefix !== '_ipp_icons') {
+        if ($prefix !== '_gfic_icons') {
             return;
         }
 

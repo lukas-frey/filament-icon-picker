@@ -1,10 +1,10 @@
 <?php
 
-namespace Guava\IconPickerPro\Forms\Components\Concerns;
+namespace Guava\IconPicker\Forms\Components\Concerns;
 
 use Closure;
-use Guava\IconPickerPro\Actions\UploadCustomIcon;
-use Guava\IconPickerPro\Icons\Icon;
+use Guava\IconPicker\Actions\UploadCustomIcon;
+use Guava\IconPicker\Icons\Icon;
 
 trait CanUploadCustomIcons
 {

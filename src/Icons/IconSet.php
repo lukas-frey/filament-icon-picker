@@ -1,8 +1,8 @@
 <?php
 
-namespace Guava\IconPickerPro\Icons;
+namespace Guava\IconPicker\Icons;
 
-use Guava\IconPickerPro\Validation\VerifyIconScope;
+use Guava\IconPicker\Validation\VerifyIconScope;
 use Illuminate\Contracts\Filesystem\Factory as FilesystemFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\Filesystem;

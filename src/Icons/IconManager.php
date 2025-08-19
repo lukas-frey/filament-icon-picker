@@ -1,6 +1,6 @@
 <?php
 
-namespace Guava\IconPickerPro\Icons;
+namespace Guava\IconPicker\Icons;
 
 use BladeUI\Icons\Factory as IconFactory;
 use Illuminate\Database\Eloquent\Model;

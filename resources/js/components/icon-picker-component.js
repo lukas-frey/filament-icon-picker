@@ -36,10 +36,8 @@ export default function iconPickerComponent({
             await verifyStateUsing(this.state)
                 .then(result => this.state = result)
 
-            // this.updateSelectedIcon();
             await this.loadIcons()
 
-            // this.$watch('state', () => this.updateSelectedIcon())
             this.$wire.on(`custom-icon-uploaded::${key}`, (icon) => {
                 this.displayName = icon.label
                 this.set = icon.set
@@ -53,29 +51,24 @@ export default function iconPickerComponent({
 
         async loadIcons() {
             this.isLoading = true;
-            // const isLoadingDeferId = this.deferLoadingState()
             return await getIconsUsing(this.set)
                 .then((icons) => {
                     this.icons = icons;
                     this.createFuseObject()
                     this.resetSearchResults()
-                    // clearTimeout(isLoadingDeferId)
                     this.isLoading = false;
                 })
         },
 
         async loadSet() {
             this.isLoading = true;
-            // const isLoadingDeferId = this.deferLoadingState()
             return await getSetUsing(this.state).then((set) => {
                 this.set = set
-                // clearTimeout(isLoadingDeferId)
                 this.isLoading = false;
             })
         },
 
         afterStateUpdated() {
-            // this.updateSelectedIcon()
         },
 
         afterSetUpdated() {
@@ -85,7 +78,6 @@ export default function iconPickerComponent({
         async updateSelectedIcon(reloadIfNotFound = true) {
             const found = this.icons.find(icon => icon.id === this.state);
             if (found) {
-                // this.selectedIcon = found.html;
             } else if (reloadIfNotFound) {
                 await this.loadSet()
                 await this.loadIcons()
@@ -117,7 +109,6 @@ export default function iconPickerComponent({
         },
 
         setSelect: {
-            // self: this,
             async ['x-on:change'](event) {
                 const value = event.target.value;
                 this.set = value ? value : null;
@@ -156,7 +147,6 @@ export default function iconPickerComponent({
             ['x-on:click.outside']() {
                 this.dropdownOpen = false;
             }
-            // [x-show="dropdown" x-on:click.outside="dropdown = false"]
         },
 
         addSearchResultsChunk() {
@@ -172,14 +162,12 @@ export default function iconPickerComponent({
             if (icon) {
                 this.state = icon.id;
                 this.displayName = icon.label;
-                // this.selectedIcon = icon.html;
                 if (this.shouldCloseOnSelect) {
                     this.$nextTick(() => this.dropdownOpen = false);
                 }
             } else {
                 this.state = null;
                 this.displayName = null;
-                // this.selectedIcon = null;
             }
         }
     }

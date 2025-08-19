@@ -1,18 +1,19 @@
 <?php
 
-namespace Guava\IconPickerPro\Validation;
+namespace Guava\IconPicker\Validation;
 
-use BladeUI\Icons\Exceptions\SvgNotFound;
 use BladeUI\Icons\Factory as IconFactory;
 use Closure;
-use Guava\IconPickerPro\Forms\Components\IconPicker;
-use Guava\IconPickerPro\Icons\Facades\IconManager;
+use Guava\IconPicker\Forms\Components\IconPicker;
+use Guava\IconPicker\Icons\Facades\IconManager;
 use Illuminate\Contracts\Validation\ValidationRule;
 
 class VerifyIcon implements ValidationRule
 {
     protected IconFactory $iconFactory;
-    public function __construct(protected IconPicker $iconPicker) {
+
+    public function __construct(protected IconPicker $iconPicker)
+    {
         $this->iconFactory = app(IconFactory::class);
     }
 

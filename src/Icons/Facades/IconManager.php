@@ -1,17 +1,17 @@
 <?php
 
-namespace Guava\IconPickerPro\Icons\Facades;
+namespace Guava\IconPicker\Icons\Facades;
 
 use BladeUI\Icons\Factory;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Guava\IconPickerPro\Forms\Components\IconPickerPro
+ * @see \Guava\IconPicker\Forms\Components\IconPicker
  */
 class IconManager extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return \Guava\IconPickerPro\Icons\IconManager::class;
+        return \Guava\IconPicker\Icons\IconManager::class;
     }
 }

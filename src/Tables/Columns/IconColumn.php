@@ -1,6 +1,6 @@
 <?php
 
-namespace Guava\IconPickerPro\Tables\Columns;
+namespace Guava\IconPicker\Tables\Columns;
 
 use BackedEnum;
 use Closure;
@@ -10,7 +10,7 @@ use Filament\Support\Enums\IconSize;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Columns\Concerns\HasColor;
 use Filament\Tables\View\Components\Columns\IconColumnComponent\IconComponent;
-use Guava\IconPickerPro\Icons\Facades\IconManager;
+use Guava\IconPicker\Icons\Facades\IconManager;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Js;
 use Illuminate\View\ComponentAttributeBag;

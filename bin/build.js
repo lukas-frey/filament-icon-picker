@@ -45,11 +45,6 @@ const defaultOptions = {
 
 compile({
     ...defaultOptions,
-    entryPoints: ['./resources/js/index.js'],
-    outfile: './resources/dist/filament-icon-picker-pro.js',
-})
-compile({
-    ...defaultOptions,
     entryPoints: ['./resources/js/components/icon-picker-component.js'],
     outfile: './resources/dist/components/icon-picker-component.js',
 })

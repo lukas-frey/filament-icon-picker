@@ -1,9 +1,9 @@
 <?php
 
-namespace Guava\IconPickerPro\Forms\Components\Concerns;
+namespace Guava\IconPicker\Forms\Components\Concerns;
 
 use Closure;
-use Guava\IconPickerPro\Validation\VerifyIconScope;
+use Guava\IconPicker\Validation\VerifyIconScope;
 use Illuminate\Database\Eloquent\Model;
 
 trait CanCloseOnSelect

@@ -1,6 +1,6 @@
 <?php
 
-namespace Guava\IconPickerPro\Forms\Components\Concerns;
+namespace Guava\IconPicker\Forms\Components\Concerns;
 
 use Closure;
 use Illuminate\Contracts\View\View;

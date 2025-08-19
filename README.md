@@ -7,47 +7,101 @@
 
 
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+This plugin adds a new icon picker form field and a corresponding table column. You can use it to select from any blade-icons kit that you have installed. By default, heroicons are supported since it is shipped with Filament.
+
+This can be useful for when you want to customize icons rendered on your frontend, if you want your users to be able to customize navigation icons, add small icons to their models for easy recognition and similar.
 
 ## Installation
 
 You can install the package via composer:
 
+**Filament v4:**
 ```bash
-composer require guava/filament-icon-picker-pro
+composer require guava/filament-icon-picker:"^3.0"
 ```
 
-You can publish and run the migrations with:
-
+**Filament v3:**
 ```bash
-php artisan vendor:publish --tag="filament-icon-picker-pro-migrations"
-php artisan migrate
+composer require guava/filament-icon-picker:"^2.0"
 ```
 
-You can publish the config file with:
-
+**Filament v2:**
 ```bash
-php artisan vendor:publish --tag="filament-icon-picker-pro-config"
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="filament-icon-picker-pro-views"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
+composer require guava/filament-icon-picker:"^1.0"
+````
 
 ## Usage
 
+### Usage in Schemas:
+Add the icon picker to any form schema in your filament panel or livewire component that supports filament forms:
 ```php
-$iconPickerPro = new Guava\IconPickerPro();
-echo $iconPickerPro->echoPhrase('Hello, Guava!');
+use Guava\IconPicker\Forms\Components\IconPicker;
+
+IconPicker::make('icon');
+```
+
+### Usage in Tables:
+To display the stored icon in your filamen tables, use our IconColumn class:
+
+```php
+// Make sure this is the correct import, not the filament one
+use Guava\IconPicker\Tables\Columns\IconColumn;
+
+$table
+    ->columns([
+        IconColumn::make('icon'),
+    ])
+    // ...
+;
+```
+
+### Usage on the frontend:
+We store the full icon name in the database. This means to use the icon on the frontend, simply treat is as any other static icon.
+
+For example, assuming we saved the icon on our `$category` model under `$icon`, you can render it in your blade view using:
+```php
+<x-icon :name="$category->icon" />
+```
+More information on rendering the icon on the [blade-icons github](https://github.com/blade-ui-kit/blade-icons#default-component).
+
+## Customization
+
+### Search Results View
+Out of the box, we provide three different search result views that you can choose from.
+
+#### Grid View
+This is the default view used. Icons will be shown in a grid with their name underneath the icon.
+
+```php
+IconPicker::make('icon')
+    ->gridSearchResults();
+```
+
+#### List View
+Icons will be rendered in a list together with the icon's name.
+
+```php
+IconPicker::make('icon')
+    ->listSearchResults();
+```
+
+#### Icons View
+Icons will be rendered in a small grid with only the icons visible, optionally configurable to show a tooltip with the icon name.
+
+```php
+IconPicker::make('icon')
+    ->iconsSearchResults()       // With tooltip
+    ->iconsSearchResults(false); // Without tooltip
+```
+
+### Dropdown
+By default, the icon picker will open a dropdown, where you can search and select the icon. (Very similar to a regular `Select` field in filament).
+
+If you prefer, you can disable the dropdown and then the search and results will be rendered directly beneath the field.
+
+```php
+IconPicker::make('icon')
+    ->dropdown(false);
 ```
 
 ## Testing

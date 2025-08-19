@@ -1,15 +1,15 @@
 <?php
 
-namespace Guava\IconPickerPro;
+namespace Guava\IconPicker;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 
-class IconPickerProPlugin implements Plugin
+class IconPickerPlugin implements Plugin
 {
     public function getId(): string
     {
-        return 'filament-icon-picker-pro';
+        return 'filament-icon-picker';
     }
 
     public function register(Panel $panel): void

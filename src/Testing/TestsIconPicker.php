@@ -1,13 +1,13 @@
 <?php
 
-namespace Guava\IconPickerPro\Testing;
+namespace Guava\IconPicker\Testing;
 
 use Livewire\Features\SupportTesting\Testable;
 
 /**
  * @mixin Testable
  */
-class TestsIconPickerPro
+class TestsIconPicker
 {
     //
 }
