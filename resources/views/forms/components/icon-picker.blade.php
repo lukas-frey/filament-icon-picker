@@ -95,7 +95,7 @@
 
             @if($isDropdown && !$isDisabled)
                 <x-guava-icon-picker::search :field="$field"
-                                             :sets="$getSets()"
+                                             :sets="$getAllowedSets()"
                                              :search-prompt="$getSearchPrompt()"
                                              :is-dropdown="$isDropdown"
                 />
@@ -104,7 +104,7 @@
 
         @if(! $isDropdown && ! $isDisabled)
             <x-guava-icon-picker::search :field="$field"
-                                         :sets="$getSets()"
+                                         :sets="$getAllowedSets()"
                                          :search-prompt="$getSearchPrompt()"
                                          :is-dropdown="$isDropdown"
             />
