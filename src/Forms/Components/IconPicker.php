@@ -2,10 +2,12 @@
 
 namespace Guava\IconPicker\Forms\Components;
 
+use Closure;
 use Filament\Forms\Components\Concerns\CanBeSearchable;
 use Filament\Forms\Components\Field;
 use Filament\Support\Components\Attributes\ExposedLivewireMethod;
 use Filament\Support\Concerns\HasPlaceholder;
+use Guava\IconPicker\Forms\Components\Concerns\HasSets;
 use Guava\IconPicker\Actions\UploadCustomIcon;
 use Guava\IconPicker\Forms\Components\Concerns\CanBeScopedToModel;
 use Guava\IconPicker\Forms\Components\Concerns\CanCloseOnSelect;
@@ -30,6 +32,9 @@ class IconPicker extends Field
     use CanUseDropdown;
     use HasPlaceholder;
     use HasSearchResultsView;
+    use HasSets;
+
+    protected string $view = 'guava-icon-picker::forms.components.icon-picker';
 
     protected function setUp(): void
     {
@@ -62,17 +67,6 @@ class IconPicker extends Field
         return parent::getHintActions();
     }
 
-    protected string $view = 'guava-icon-picker::forms.components.icon-picker';
-
-    public function getSets()
-    {
-        return IconManager::getSets()
-            ->when(
-                ! $this->isCustomIconsUploadEnabled(),
-                fn (Collection $sets) => $sets->filter(fn (IconSet $set) => ! $set->custom)
-            )
-        ;
-    }
 
     public function getState(): mixed
     {
