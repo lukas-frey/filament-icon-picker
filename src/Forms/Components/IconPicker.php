@@ -2,20 +2,18 @@
 
 namespace Guava\IconPicker\Forms\Components;
 
-use Closure;
 use Filament\Forms\Components\Concerns\CanBeSearchable;
 use Filament\Forms\Components\Field;
 use Filament\Support\Components\Attributes\ExposedLivewireMethod;
 use Filament\Support\Concerns\HasPlaceholder;
-use Guava\IconPicker\Forms\Components\Concerns\HasSets;
 use Guava\IconPicker\Actions\UploadCustomIcon;
 use Guava\IconPicker\Forms\Components\Concerns\CanBeScopedToModel;
 use Guava\IconPicker\Forms\Components\Concerns\CanCloseOnSelect;
 use Guava\IconPicker\Forms\Components\Concerns\CanUploadCustomIcons;
 use Guava\IconPicker\Forms\Components\Concerns\CanUseDropdown;
 use Guava\IconPicker\Forms\Components\Concerns\HasSearchResultsView;
+use Guava\IconPicker\Forms\Components\Concerns\HasSets;
 use Guava\IconPicker\Icons\Facades\IconManager;
-use Guava\IconPicker\Icons\IconSet;
 use Guava\IconPicker\Validation\VerifyIcon;
 use Guava\IconPicker\Validation\VerifyIconScope;
 use Illuminate\Support\Collection;
@@ -66,7 +64,6 @@ class IconPicker extends Field
 
         return parent::getHintActions();
     }
-
 
     public function getState(): mixed
     {
