@@ -1,9 +1,7 @@
-# This is the pro version of the popular icon picker plugin
+# Icon Picker for your filament panels
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/guava/filament-icon-picker-pro.svg?style=flat-square)](https://packagist.org/packages/guava/filament-icon-picker-pro)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/guava/filament-icon-picker-pro/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/guava/filament-icon-picker-pro/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/guava/filament-icon-picker-pro/fix-php-code-styling.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/guava/filament-icon-picker-pro/actions?query=workflow%3A"Fix+PHP+code+styling"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/guava/filament-icon-picker-pro.svg?style=flat-square)](https://packagist.org/packages/guava/filament-icon-picker-pro)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/guava/filament-icon-picker.svg?style=flat-square)](https://packagist.org/packages/guava/filament-icon-picker)
+[![Total Downloads](https://img.shields.io/packagist/dt/guava/filament-icon-picker.svg?style=flat-square)](https://packagist.org/packages/guava/filament-icon-picker)
 
 
 
@@ -145,7 +143,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Lukas Frey](https://github.com/GuavaCZ)
+- [Lukas Frey](https://github.com/lukas-frey)
 - [All Contributors](../../contributors)
 
 ## License
