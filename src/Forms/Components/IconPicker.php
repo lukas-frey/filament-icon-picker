@@ -103,7 +103,7 @@ class IconPicker extends Field
 
     #[ExposedLivewireMethod]
     #[Renderless]
-    public function getIconSvgJs(?string $id): ?string
+    public function getIconSvgJs(?string $id = null): ?string
     {
         if (IconManager::getIcon($id, false)) {
             return generate_icon_html($id)?->toHtml();
@@ -114,7 +114,7 @@ class IconPicker extends Field
 
     #[ExposedLivewireMethod]
     #[Renderless]
-    public function verifyState(?string $state): ?string
+    public function verifyState(?string $state = null): ?string
     {
         if ($state && ! IconManager::getIcon($state)) {
             return null;
