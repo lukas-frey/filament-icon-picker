@@ -49,6 +49,27 @@ class IconManager
 
     public function getIcon(?string $id, bool $checkScope = false): ?Icon
     {
-        return $this->getIcons(checkScope: $checkScope)->first(fn (Icon $icon) => $icon->id === $id);
+        if ($id === null) {
+            return null;
+        }
+
+        if ($checkScope) {
+            return $this->getIcons(checkScope: $checkScope)->first(fn (Icon $icon) => $icon->id === $id);
+        }
+
+        /** @var IconSet[] $sets */
+        $sets = $this->getSets();
+
+        foreach ($sets as $set) {
+            if (str($id)->startsWith($set->getPrefix())) {
+                return new Icon(
+                    $id,
+                    str($id)->headline()->lower()->ucfirst(),
+                    $set
+                );
+            }
+        }
+
+        return null;
     }
 }
